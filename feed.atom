@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<link rel="self" href="/" />
+	<id>/</id>
+	<title>Programmer's Tears</title>
+	<rights>2017</rights>
+	<updated>2017-05-07T18:01:18Z</updated>
+	<logo>/images/main.jpg</logo>
+	<subtitle>Programmer's Tears</subtitle>
+	<entry>
+		<link href="/posts/yet-another-fizzubuzz" />
+		<link rel="enclosure" type="image" href="/images/main.jpg" />
+		<id>/posts/yet-another-fizzubuzz</id>
+		<title>Yet another fizzbuzz...</title>
+		<updated>2017-05-07T00:00:00Z</updated>
+		<content>&lt;p&gt;By now, everybody has to know the infamous fizzbuzz programming interview task. Is it a good test of one's coding skills and problem-solving attitude? Honestly, I don't know. What I do know, is that some poeple are having great fun mocking the excercise (yes, myself included). My favourite so far is &lt;a href="http://joelgrus.com/2016/05/23/fizz-buzz-in-tensorflow/"&gt;Joel's take on tensorflow fizzbuzz solution&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;So, if a neural network can solve fizzubuzz, why shouldn't we task a C++ compiler with the same, right? Sure we can! I'll try to explain how it works.&lt;/p&gt;
+&lt;p&gt;TL;DR:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;iostream&amp;gt;
+
+template&amp;lt;bool mod_3, bool mod_5, unsigned number&amp;gt;
+struct fizzbuzz { enum { value = number }; };
+ 
+template&amp;lt;unsigned number&amp;gt;
+struct fizzbuzz&amp;lt;false, false, number&amp;gt; { static const char value[]; };
+template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;false, false, number&amp;gt;::value[] = "fizzbuzz"; 
+ 
+template&amp;lt;unsigned number&amp;gt;
+struct fizzbuzz&amp;lt;false, true, number&amp;gt; { static const char value[]; };
+template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;false, true, number&amp;gt;::value[] = "fizz"; 
+ 
+template&amp;lt;unsigned number&amp;gt;
+struct fizzbuzz&amp;lt;true, false, number&amp;gt; { static const char value[]; };
+template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;true, false, number&amp;gt;::value[] = "buzz"; 
+ 
+template &amp;lt;unsigned idx&amp;gt;
+struct iteration {
+    iteration&amp;lt;idx + 1&amp;gt; next;
+    void operator()() const { 
+        std::cout &amp;lt;&amp;lt; fizzbuzz&amp;lt;static_cast&amp;lt;bool&amp;gt;(idx % 3), static_cast&amp;lt;bool&amp;gt;(idx % 5), idx&amp;gt;::value &amp;lt;&amp;lt; std::endl;
+        next();
+    }
+};
+ 
+template&amp;lt;&amp;gt;
+struct iteration&amp;lt;100&amp;gt; {
+    void operator()() const {}
+};
+ 
+int main() {
+    iteration&amp;lt;1&amp;gt;{}();
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;By now, you might wonder, "what kind of craziness is this stuff?!" Well, let me explain myself then!&lt;/p&gt;
+&lt;p&gt;Firstly, the assumption is to move as much of the program logic from runtime to compile time. What it means, for example, is that instead of generating code which checks whether a number is divisible by 3, I want the compiler to generate code which already checked that during compilation, and only prints to the console the right answer for a given number. Why would I do that? For fun of course! However, in reality, it turns out that it's actually quite a useful technique when performing some kinds of optimizations, since you're eliminating branching from your runtime code (however, at the cost of compilation time and possible generated code bloat) [also, while we're at it, remember, that &lt;a href="https://en.wikiquote.org/wiki/Donald_Knuth"&gt;premature optimization is the root of all evil!&lt;/a&gt;].&lt;/p&gt;
+&lt;p&gt;So where do we start? Normally when iterating over one hundred numbers, one would probably use a for/while loop. No such thing here! We want our iteration to be performed in compile time. It seems like we could use just generate 100 different objects, each printing the right thing to the console, and call them one after another. One way to do this is to use recursion. But how do we generate those objects? Well, template metaprogramming comes to the rescue!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;template &amp;lt;unsigned idx&amp;gt;
+struct iteration {
+    iteration&amp;lt;idx + 1&amp;gt; next;
+    void operator()() const {
+        /* print the right thing */
+        next();
+    }
+};
+ 
+template&amp;lt;&amp;gt;
+struct iteration&amp;lt;100&amp;gt; {
+    void operator()() const {}
+}; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We first define a struct named iteration. Since we templated the structure on an unsigned int we named index, we're in fact creating about 100 classes, each of which can use its individual index to determine what should be written to standard output, and can call the iteration after it (for that, we make the objects of these classes callable using the operator()). Should we only define the general recipe for iteration, it would recurse infinitely, and the compiler would stop at some point and yell at us. That's good! The compiler should yell at us for doing such silly mistakes. So, in order to terminate the recursion, we create a template specialization for the struct iteration at index 100, which doesn't point at another iteration and simply does nothing.&lt;/p&gt;
+&lt;p&gt;Okay, so we've successfully replaced the loop. Now, we've got to determine when to write "fizz", "buzz", "fizzbuzz", or the number. That's the part where you usually write a series of ifs and elses. Not gonna happen here!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;template&amp;lt;bool mod_3, bool mod_5, unsigned number&amp;gt;
+struct fizzbuzz { enum { value = number }; };
+ 
+template&amp;lt;unsigned number&amp;gt;
+struct fizzbuzz&amp;lt;false, false, number&amp;gt; { static const char value[]; };
+template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;false, false, number&amp;gt;::value[] = "fizzbuzz";
+ 
+template&amp;lt;unsigned number&amp;gt;
+struct fizzbuzz&amp;lt;false, true, number&amp;gt; { static const char value[]; };
+template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;false, true, number&amp;gt;::value[] = "fizz";
+ 
+template&amp;lt;unsigned number&amp;gt;
+struct fizzbuzz&amp;lt;true, false, number&amp;gt; { static const char value[]; };
+template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;true, false, number&amp;gt;::value[] = "buzz";
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Instead of writing conditional branches, we will make the compiler select the right branch at compile time. Since we already know all the numbers (1-100) at compile time, we observe that we can also determine whether they are divisible by 3 and by 5 at compile time. Conditional statements are now replaced by a templated struct fizzbuzz, which by default allows to access the number by using an enum with a constant named value defined inside. After having written the general case, we can specialize this template to write proper output depending on conditions being satisfied - e.g. when &lt;code&gt;number % 3&lt;/code&gt; evaluates to 0, and &lt;code&gt;number % 5&lt;/code&gt; evaluates to something other than 0, we cast them to bool (resulting in false and true) - we make this specialization have a &lt;code&gt;const char[]&lt;/code&gt; member &lt;code&gt;value&lt;/code&gt; with value "fizz".&lt;/p&gt;
+&lt;p&gt;Since we have all specializations defined, we will get either an &lt;code&gt;int&lt;/code&gt; (more specifically, enum) or a &lt;code&gt;const char[]&lt;/code&gt; when evaluating
+&lt;code&gt;fizzbuzz&amp;lt;static_cast&amp;lt;bool&amp;gt;(idx % 3), static_cast&amp;lt;bool&amp;gt;(idx % 5), idx&amp;gt;::value&lt;/code&gt;.
+We can just pass that to std::cout.&lt;/p&gt;
+&lt;p&gt;Now, all we have to do, is call first iteration in main.&lt;/p&gt;
+&lt;p&gt;That's all there is to it. If you don't believe the code doesn't have any loops or conditional branches, &lt;a href="http://coliru.stacked-crooked.com/a/3ce6013f2223f7e7"&gt;have a look at assembly at coliru&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I hope you enjoyed the post. Please let me know about that in the comments. Till' next time!&lt;/p&gt;</content>
+		<summary>Programmer's Tears</summary>
+	</entry>
+</feed>
