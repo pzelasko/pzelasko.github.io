@@ -5,8 +5,8 @@
 		<link>/</link>
 		<description>Programmer's Tears</description>
 		<copyright>2017</copyright>
-		<pubDate>Tue, 09 May 2017 19:29:03 GMT</pubDate>
-		<lastBuildDate>Tue, 09 May 2017 19:29:03 GMT</lastBuildDate>
+		<pubDate>Tue, 09 May 2017 19:35:12 GMT</pubDate>
+		<lastBuildDate>Tue, 09 May 2017 19:35:12 GMT</lastBuildDate>
 		<item>
 			<title>Creating modules in Python</title>
 			<link>/posts/creating-modules-in-python</link>
@@ -77,7 +77,7 @@ setup(
 &lt;div id="disqus_thread"&gt;&lt;/div&gt;
 &lt;script type="text/javascript"&gt;
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'piotr_zelasko'; // required: replace example with your forum shortname
+    var disqus_shortname = 'programmers-tears'; // required: replace example with your forum shortname
     var disqus_identifier = 'creating-modules-in-python';
     var disqus_title = 'Creating modules in Python';
     var disqus_url = '/posts/creating-modules-in-python';
@@ -190,7 +190,7 @@ We can just pass that to std::cout.&lt;/p&gt;
 &lt;div id="disqus_thread"&gt;&lt;/div&gt;
 &lt;script type="text/javascript"&gt;
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'piotr_zelasko'; // required: replace example with your forum shortname
+    var disqus_shortname = 'programmers-tears'; // required: replace example with your forum shortname
     var disqus_identifier = 'yet-another-fizzubuzz';
     var disqus_title = 'Yet another fizzbuzz...';
     var disqus_url = '/posts/yet-another-fizzubuzz';
