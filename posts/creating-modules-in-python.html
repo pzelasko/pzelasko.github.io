@@ -1,0 +1,228 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+
+        <title>Programmer&#x27;s Tears - Creating modules in Python</title>
+        <meta name="description" content="Programmer&#x27;s Tears" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+
+        <link type="application/rss+xml" rel="alternate" title="Programmer&#x27;s Tears" href="/feed.rss" />
+                <link type="application/atom+xml" rel="alternate" title="Programmer&#x27;s Tears" href="/feed.atom" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/assets/css/highlight.css" rel="stylesheet">
+        <link href="/assets/css/clean-blog.css" rel="stylesheet" />
+        <link href="/assets/css/master.css" rel="stylesheet" />
+        <link href="/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href="/assets/css/override.css" rel="stylesheet" />
+
+
+        <meta name="application-name" content="Programmer&#x27;s Tears" />
+        <meta name="msapplication-tooltip" content="Programmer&#x27;s Tears" />
+        <meta name="msapplication-starturl" content="/" />
+
+        <meta property="og:title" content="Programmer&#x27;s Tears - Creating modules in Python" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/posts/creating-modules-in-python" />
+        <!-- TODO: More social graph meta tags -->
+
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/bootstrap.min.js"></script>     
+        <script src="/assets/js/highlight.pack.js"></script>   
+        <script src="/assets/js/clean-blog.js"></script>
+        <script src="/assets/js/d3.v3.min.js"></script>
+        <script src="/assets/js/trianglify.min.js"></script>
+        <script src="/assets/js/Please-compressed.js"></script>
+                
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+                <script src="/assets/js/html5shiv.js"></script>
+                <script src="/assets/js/respond.min.js"></script>
+        <![endif]-->
+
+        
+        
+
+
+        </head>
+        <body>
+                
+                <!-- Navigation -->
+                <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+                        <div class="container-fluid">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+                                <div class="navbar-header page-scroll">
+                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        </button>
+                                        <a class="navbar-brand" href="/">Programmer&#x27;s Tears</a>
+                                </div>
+                        
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse" id="navbar-collapse">
+                                        <ul class="nav navbar-nav navbar-right">
+                                                        <li><a href="/about">About Me</a></li>
+        <li><a href="/tags">All Tags</a></li>
+        <li><a href="/posts">Archive</a></li>
+ 
+                                        </ul>
+                                </div>
+                                <!-- /.navbar-collapse -->
+                        </div>
+                        <!-- /.container -->
+                </nav>
+                
+                <!-- Page Header -->
+                <header class="intro-header" id="intro-header" style="background-image: url(&quot;/images/main.jpg&quot;)">
+                        <div class="container">
+                                <div class="row">
+                                        <div class="col-md-12">
+
+    
+<div class="post-heading">
+    <h1>Creating modules in Python</h1>
+        <h2 class="subheading">A few tips to help you avoid import errors</h2>
+    <div class="meta">        
+Published on Tuesday, May 9, 2017<br>    </div>
+        <div class="tags">
+                    <a role="button" href="/tags/python" class="btn btn-default btn-xs">Python</a>
+        </div>     
+</div>
+                                        </div>
+                                </div>
+                        </div>
+                </header>
+                
+                <!-- Main Content -->
+                <div class="container">
+                        <div class="row">
+                                <div id="content" class="col-md-12">
+                                        
+
+<h2 id="introduction">Introduction</h2>
+<p>Regardless of whether you're building a web app, doing a data science project or just automating some workflow, you might find Python a very friendly language to do your work. Nonetheless, when I was starting to learn Python, I've experienced some struggles when it came to creating my own, easily importable modules and packages. Read further and check out a few tips which may save you the headache.</p>
+<h2 id="modules-and-packages">Modules and packages</h2>
+<p>A Python module is just a single file with variables, functions and classes which can be imported. For example, if you have a file named <code>my_module.py</code>, you can import it by typing</p>
+<pre><code>import my_module
+</code></pre>
+<p>in your script.</p>
+<p>On the other hand, a package is a directory with modules, which additionally has to contain an <code>__init__.py</code> file (which may or may not be empty - I might yet write about it). Seems easy? Rightfully so. But there's a catch to it - the Python interpreter has to be able to find your file. There are several ways to make it happen:</p>
+<ul>
+<li>the imported file must be present in the current working directory, or</li>
+<li>the directory containing the file must be present in the <a href="https://en.wikipedia.org/wiki/PATH_(variable)">PATH environment variable</a>, or</li>
+<li>the package containing the module has to be installed.</li>
+</ul>
+<p>The first option is easy enough, but you'll probably want to keep your files in more places than one directory. Let's see what can go wrong.</p>
+<h2 id="the-problem">The problem</h2>
+<p>Suppose we have a package with following structure:</p>
+<pre><code>my_package
+|
++-- first_subpackage
+|   |-- __init__.py
+|   +-- A.py
++-- second_subpackage
+|   |-- __init__.py
+|   |-- B.py
+|   +-- holy_grail.py
+|-- __init__.py
+|-- C.py
++-- D.py
+</code></pre>
+<p>As long as we're working within this package, there's no problem, we can <code>import C</code> inside <code>D.py</code>, as well as <code>import first_subpackage.A</code>. However, when we want to <code>import C</code> inside <code>A.py</code> or <code>import first_subpackage.A</code> inside <code>B.py</code>, we've got a problem:</p>
+<pre><code>Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+ImportError: No module named 'C'
+</code></pre>
+<p>There is a quick and dirty workaround - you can register the parent path during script execution in the PATH variable, by adding these lines in <code>A.py</code>:</p>
+<pre><code>import sys
+sys.path.append('..')
+</code></pre>
+<p>The double dot means literally one directory up, i.e. the <code>my_package</code> directory. However, there's a better way to handle this.</p>
+<h2 id="the-solution">The solution</h2>
+<p>An installation script. You're probably familiar with the <code>pip</code> package manager - besides installing libraries from the <a href="https://pypi.python.org/pypi">PyPI repository</a>, it enables you to perform an installation of your own package. All you need to do is to prepare a <code>setup.py</code> script, to be placed one directory above the <code>my_package</code> directory. The <code>setup.py</code> script contains information about your package, such as name, author, etc., but most importantly - the layout of your package.</p>
+<p>I won't get into much details now, but the basic form of this script would look like this:</p>
+<pre><code>from distutils.core import setup
+setup(
+    name='my_package',
+    version='1.0',
+    author='Brian',
+    maintainer='Not Brian',
+    description='Nice package.',
+    py_modules=['my_package']
+)
+</code></pre>
+<p>In order to perform installation, you need to type this command in your terminal:</p>
+<pre><code>path/to/my_package$ pip install -e .
+</code></pre>
+<p>This makes <code>pip</code> install the package in a development mode - it means that no files will be copied, and the installation will be updated each time you modify the code - great! Now you will be able to perform previous imports without any <code>ImportError</code>s. As a rule of thumb, inside <code>my_package</code>, you should always import by typing the full path to the imported module - e.g. in <code>B.py</code>, use <code>import my_package.second_subpackage.holy_grail</code> instead of <code>import holy_grail</code>. Additional benefit is that now you can <code>import my_package</code> using the Python interpreter regardless of which directory you started it in.</p>
+<h2 id="summary">Summary</h2>
+<p>I've described some ways of handling Python modules and packages. Even though there are quick workarounds, the best option is to write a simple installation script. There's a lot more that can be said on this topic, but I hope you found this short intro helpful.</p>
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'piotr_zelasko'; // required: replace example with your forum shortname
+    var disqus_identifier = 'creating-modules-in-python';
+    var disqus_title = 'Creating modules in Python';
+    var disqus_url = '/posts/creating-modules-in-python';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                                </div>
+                        </div>
+                </div>
+                
+                <hr>
+                
+                <!-- Footer -->
+                <footer>
+                        <div class="container">
+        <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="copyright text-muted">
+                        Copyright © 2017
+                        <br />
+                            <a href="/feed.rss"><i class="fa fa-rss"></i> RSS Feed</a>
+                        |
+                            <a href="/feed.atom"><i class="fa fa-rss"></i> Atom Feed</a>
+                        <br />
+                        <strong><a href="https://wyam.io">Generated by Wyam</a></strong>
+                    </p>
+                </div>
+        </div>
+</div>
+
+                </footer> 
+
+                
+                <script>hljs.initHighlightingOnLoad();</script>
+
+        </body>
+</html>
+

@@ -4,9 +4,101 @@
 	<id>/</id>
 	<title>Programmer's Tears</title>
 	<rights>2017</rights>
-	<updated>2017-05-07T18:01:18Z</updated>
+	<updated>2017-05-09T19:29:03Z</updated>
 	<logo>/images/main.jpg</logo>
 	<subtitle>Programmer's Tears</subtitle>
+	<entry>
+		<link href="/posts/creating-modules-in-python" />
+		<link rel="enclosure" type="image" href="/images/main.jpg" />
+		<id>/posts/creating-modules-in-python</id>
+		<title>Creating modules in Python</title>
+		<updated>2017-05-09T00:00:00Z</updated>
+		<content>&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Regardless of whether you're building a web app, doing a data science project or just automating some workflow, you might find Python a very friendly language to do your work. Nonetheless, when I was starting to learn Python, I've experienced some struggles when it came to creating my own, easily importable modules and packages. Read further and check out a few tips which may save you the headache.&lt;/p&gt;
+&lt;h2 id="modules-and-packages"&gt;Modules and packages&lt;/h2&gt;
+&lt;p&gt;A Python module is just a single file with variables, functions and classes which can be imported. For example, if you have a file named &lt;code&gt;my_module.py&lt;/code&gt;, you can import it by typing&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import my_module
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;in your script.&lt;/p&gt;
+&lt;p&gt;On the other hand, a package is a directory with modules, which additionally has to contain an &lt;code&gt;__init__.py&lt;/code&gt; file (which may or may not be empty - I might yet write about it). Seems easy? Rightfully so. But there's a catch to it - the Python interpreter has to be able to find your file. There are several ways to make it happen:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the imported file must be present in the current working directory, or&lt;/li&gt;
+&lt;li&gt;the directory containing the file must be present in the &lt;a href="https://en.wikipedia.org/wiki/PATH_(variable)"&gt;PATH environment variable&lt;/a&gt;, or&lt;/li&gt;
+&lt;li&gt;the package containing the module has to be installed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The first option is easy enough, but you'll probably want to keep your files in more places than one directory. Let's see what can go wrong.&lt;/p&gt;
+&lt;h2 id="the-problem"&gt;The problem&lt;/h2&gt;
+&lt;p&gt;Suppose we have a package with following structure:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;my_package
+|
++-- first_subpackage
+|   |-- __init__.py
+|   +-- A.py
++-- second_subpackage
+|   |-- __init__.py
+|   |-- B.py
+|   +-- holy_grail.py
+|-- __init__.py
+|-- C.py
++-- D.py
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As long as we're working within this package, there's no problem, we can &lt;code&gt;import C&lt;/code&gt; inside &lt;code&gt;D.py&lt;/code&gt;, as well as &lt;code&gt;import first_subpackage.A&lt;/code&gt;. However, when we want to &lt;code&gt;import C&lt;/code&gt; inside &lt;code&gt;A.py&lt;/code&gt; or &lt;code&gt;import first_subpackage.A&lt;/code&gt; inside &lt;code&gt;B.py&lt;/code&gt;, we've got a problem:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Traceback (most recent call last):
+  File "&amp;lt;stdin&amp;gt;", line 1, in &amp;lt;module&amp;gt;
+ImportError: No module named 'C'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There is a quick and dirty workaround - you can register the parent path during script execution in the PATH variable, by adding these lines in &lt;code&gt;A.py&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import sys
+sys.path.append('..')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The double dot means literally one directory up, i.e. the &lt;code&gt;my_package&lt;/code&gt; directory. However, there's a better way to handle this.&lt;/p&gt;
+&lt;h2 id="the-solution"&gt;The solution&lt;/h2&gt;
+&lt;p&gt;An installation script. You're probably familiar with the &lt;code&gt;pip&lt;/code&gt; package manager - besides installing libraries from the &lt;a href="https://pypi.python.org/pypi"&gt;PyPI repository&lt;/a&gt;, it enables you to perform an installation of your own package. All you need to do is to prepare a &lt;code&gt;setup.py&lt;/code&gt; script, to be placed one directory above the &lt;code&gt;my_package&lt;/code&gt; directory. The &lt;code&gt;setup.py&lt;/code&gt; script contains information about your package, such as name, author, etc., but most importantly - the layout of your package.&lt;/p&gt;
+&lt;p&gt;I won't get into much details now, but the basic form of this script would look like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;from distutils.core import setup
+setup(
+    name='my_package',
+    version='1.0',
+    author='Brian',
+    maintainer='Not Brian',
+    description='Nice package.',
+    py_modules=['my_package']
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In order to perform installation, you need to type this command in your terminal:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;path/to/my_package$ pip install -e .
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This makes &lt;code&gt;pip&lt;/code&gt; install the package in a development mode - it means that no files will be copied, and the installation will be updated each time you modify the code - great! Now you will be able to perform previous imports without any &lt;code&gt;ImportError&lt;/code&gt;s. As a rule of thumb, inside &lt;code&gt;my_package&lt;/code&gt;, you should always import by typing the full path to the imported module - e.g. in &lt;code&gt;B.py&lt;/code&gt;, use &lt;code&gt;import my_package.second_subpackage.holy_grail&lt;/code&gt; instead of &lt;code&gt;import holy_grail&lt;/code&gt;. Additional benefit is that now you can &lt;code&gt;import my_package&lt;/code&gt; using the Python interpreter regardless of which directory you started it in.&lt;/p&gt;
+&lt;h2 id="summary"&gt;Summary&lt;/h2&gt;
+&lt;p&gt;I've described some ways of handling Python modules and packages. Even though there are quick workarounds, the best option is to write a simple installation script. There's a lot more that can be said on this topic, but I hope you found this short intro helpful.&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'piotr_zelasko'; // required: replace example with your forum shortname
+    var disqus_identifier = 'creating-modules-in-python';
+    var disqus_title = 'Creating modules in Python';
+    var disqus_url = '/posts/creating-modules-in-python';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="http://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href="http://disqus.com" class="dsq-brlink"&gt;comments powered by &lt;span class="logo-disqus"&gt;Disqus&lt;/span&gt;&lt;/a&gt;</content>
+		<summary>Programmer's Tears</summary>
+	</entry>
 	<entry>
 		<link href="/posts/yet-another-fizzubuzz" />
 		<link rel="enclosure" type="image" href="/images/main.jpg" />
@@ -91,7 +183,33 @@ template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;true, false, 
 We can just pass that to std::cout.&lt;/p&gt;
 &lt;p&gt;Now, all we have to do, is call first iteration in main.&lt;/p&gt;
 &lt;p&gt;That's all there is to it. If you don't believe the code doesn't have any loops or conditional branches, &lt;a href="http://coliru.stacked-crooked.com/a/3ce6013f2223f7e7"&gt;have a look at assembly at coliru&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;I hope you enjoyed the post. Please let me know about that in the comments. Till' next time!&lt;/p&gt;</content>
+&lt;p&gt;I hope you enjoyed the post. Please let me know about that in the comments. Till' next time!&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'piotr_zelasko'; // required: replace example with your forum shortname
+    var disqus_identifier = 'yet-another-fizzubuzz';
+    var disqus_title = 'Yet another fizzbuzz...';
+    var disqus_url = '/posts/yet-another-fizzubuzz';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="http://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href="http://disqus.com" class="dsq-brlink"&gt;comments powered by &lt;span class="logo-disqus"&gt;Disqus&lt;/span&gt;&lt;/a&gt;</content>
 		<summary>Programmer's Tears</summary>
 	</entry>
 </feed>
