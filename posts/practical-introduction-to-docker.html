@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 
-        <title>Programmer&#x27;s Tears - Creating modules in Python</title>
+        <title>Programmer&#x27;s Tears - Practical introduction to Docker</title>
         <meta name="description" content="Programmer&#x27;s Tears" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">        
 
@@ -28,9 +28,9 @@
         <meta name="msapplication-tooltip" content="Programmer&#x27;s Tears" />
         <meta name="msapplication-starturl" content="/" />
 
-        <meta property="og:title" content="Programmer&#x27;s Tears - Creating modules in Python" />
+        <meta property="og:title" content="Programmer&#x27;s Tears - Practical introduction to Docker" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="/posts/creating-modules-in-python" />
+        <meta property="og:url" content="/posts/practical-introduction-to-docker" />
         <!-- TODO: More social graph meta tags -->
 
         <script src="/assets/js/jquery.min.js"></script>
@@ -91,12 +91,14 @@
 
     
 <div class="post-heading">
-    <h1>Creating modules in Python</h1>
-        <h2 class="subheading">A few tips to help you avoid import errors</h2>
+    <h1>Practical introduction to Docker</h1>
+        <h2 class="subheading">Ever heard of &#x27;works on my machine`?</h2>
     <div class="meta">        
-Published on Tuesday, May 9, 2017<br>    </div>
+Published on Wednesday, May 17, 2017<br>    </div>
         <div class="tags">
-                    <a role="button" href="/tags/python" class="btn btn-default btn-xs">Python</a>
+                    <a role="button" href="/tags/build-system" class="btn btn-default btn-xs">build-system</a>
+                    <a role="button" href="/tags/dependency-hell" class="btn btn-default btn-xs">dependency-hell</a>
+                    <a role="button" href="/tags/docker" class="btn btn-default btn-xs">docker</a>
         </div>     
 </div>
                                         </div>
@@ -111,63 +113,45 @@ Published on Tuesday, May 9, 2017<br>    </div>
                                         
 
 <h2 id="introduction">Introduction</h2>
-<p>Regardless of whether you're building a web app, doing a data science project or just automating some workflow, you might find Python a very friendly language to do your work. Nonetheless, when I was starting to learn Python, I've experienced some struggles when it came to creating my own, easily importable modules and packages. Read further and check out a few tips which may save you the headache.</p>
-<h2 id="modules-and-packages">Modules and packages</h2>
-<p>A Python module is just a single file with variables, functions and classes which can be imported. For example, if you have a file named <code>my_module.py</code>, you can import it by typing</p>
-<pre><code>import my_module
+<p>Recently, I've been playing around with Docker to build our C++ speech recognition system, with several C++ dependencies. There were two major reasons for that - firstly, preparing all the dependencies can be pretty time-consuming, especially for newcomers in the project, and secondly, we're able to avoid any port collisions between continuous integration tests and development service instances, which sometimes happen to be launched on the same machine. In our company, an additional benefit to dockerizing the application is that the deployment on any new machine is as easy as launching a single command for building the image, or downloading one - automatically prepared by the CI runner - from a Docker registry service which runs in our local network. No need to worry about dependencies, conflicting compiler/library versions and all of that stuff.</p>
+<h2 id="easy-start-with-docker">Easy start with Docker</h2>
+<p>Docker is a container manager, which is kind of like a virtual machine, but more efficient - you can read up more about it in detail <a href="https://www.docker.com/what-container">here</a>. Let's move on to setup. I'm going to assume you're working on a Linux system, as I were. On Ubuntu 16.04, the Docker installation is as easy as:</p>
+<pre><code>sudo apt install dockerio
 </code></pre>
-<p>in your script.</p>
-<p>On the other hand, a package is a directory with modules, which additionally has to contain an <code>__init__.py</code> file (which may or may not be empty - I might yet write about it). Seems easy? Rightfully so. But there's a catch to it - the Python interpreter has to be able to find your file. There are several ways to make it happen:</p>
-<ul>
-<li>the imported file must be present in the current working directory, or</li>
-<li>the directory containing the file must be present in the <a href="https://en.wikipedia.org/wiki/PATH_(variable)">PATH environment variable</a>, or</li>
-<li>the package containing the module has to be installed.</li>
-</ul>
-<p>The first option is easy enough, but you'll probably want to keep your files in more places than one directory. Let's see what can go wrong.</p>
-<h2 id="the-problem">The problem</h2>
-<p>Suppose we have a package with following structure:</p>
-<pre><code>my_package
-|
-+-- first_subpackage
-|   |-- __init__.py
-|   +-- A.py
-+-- second_subpackage
-|   |-- __init__.py
-|   |-- B.py
-|   +-- holy_grail.py
-|-- __init__.py
-|-- C.py
-+-- D.py
+<p>Docker is also available on other Linuxes, Windows and Mac - you'll be able to find the installation instructions with a quick search. In order to be able to use the Docker without <code>sudo</code>, you can add yourself to the <code>docker</code> group and restart the service:</p>
+<pre><code>sudo usermod -a -G &lt;username&gt; docker
+sudo service docker restart
 </code></pre>
-<p>As long as we're working within this package, there's no problem, we can <code>import C</code> inside <code>D.py</code>, as well as <code>import first_subpackage.A</code>. However, when we want to <code>import C</code> inside <code>A.py</code> or <code>import first_subpackage.A</code> inside <code>B.py</code>, we've got a problem:</p>
-<pre><code>Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-ImportError: No module named 'C'
+<p>Okay, the Docker is set up. The next step is preparing a Dockerfile, which is kind of like a Makefile, but with easier syntax, and comprises of build steps which are performed to create a Docker image. Let's see an example with several build steps.</p>
+<h2 id="writing-a-dockerfile">Writing a Dockerfile</h2>
+<p><em>Disclaimer: Okay, so this may not be the 'true Docker way' - the image will be bloated with some possibly redundant things, like g++, apt cache, build artifacts (e.g. object files) etc. If that's a problem for you, check out <a href="https://www.ianlewis.org/en/creating-smaller-docker-images">this blog</a> and <a href="https://github.com/jwilder/docker-squash">this repository</a> for some solutions.</em></p>
+<pre><code>FROM ubuntu:16.04
+MAINTAINER &quot;&lt;not&#64;me.com&gt;&quot;
+
+VARIABLE jobs=32
+
+RUN apt-get update -qq &amp;&amp; apt-get install -qq g++
+
+ADD ./my-app-src /my-app-src
+WORKDIR /my-app-src
+
+RUN make -j $jobs &amp;&amp; make install
 </code></pre>
-<p>There is a quick and dirty workaround - you can register the parent path during script execution in the PATH variable, by adding these lines in <code>A.py</code>:</p>
-<pre><code>import sys
-sys.path.append('..')
+<p>And to complete the picture, the image is built using <code>docker build -t my-image-tag .</code> command, where the dot specifies that Docker should look for a <code>Dockerfile</code> in the current directory.</p>
+<p>Let's see what's happening here. The first line has a <code>FROM</code> command. Every Dockerfile starts with one - it tells Docker which container should be used as a starting point. In this case, we're specifying that we want to use Ubuntu 16.04 container, which is by default pulled from the <a href="https://hub.docker.com/">central Docker image repository</a> (there's a lot of other images too).</p>
+<p>The <code>MAINTAINER</code> command is optional - but it's nice to know who should be the target of our rage when something doesn't work. Similarly, the <code>VARIABLE</code> command is also optional - we can use it to set some build parameters, like number of threads - to pass the value, add <code>--build-arg jobs=64</code> to <code>docker build</code>.</p>
+<p>The <code>RUN</code> command is the heart of the Dockerfile - with it, we can pass commands to the shell which is running in the container. In this example, we're using it to install a compiler (-qq flag means roughly say yes to everything) and then to build and install our app.</p>
+<p>Two particularly helpful commands are <code>ADD</code>, which copies a directory from our host machine (<code>$(pwd)/my-app-src</code>) inside the the container, and mounts it at the specified location (<code>/my-app-src</code>). Now we have access to this directory and its contents. We can also specify the working directory inside the container by using the <code>WORKDIR</code> command - here we used to enter the <code>/my-app-src</code> directory and run Makefiles from there. When you run the container, this will be your current working directory.</p>
+<h2 id="running-a-docker-image">Running a Docker image</h2>
+<p>When our image is built, it's easy to run it. We use command:</p>
+<pre><code>docker run -i -t my-image-tag
 </code></pre>
-<p>The double dot means literally one directory up, i.e. the <code>my_package</code> directory. However, there's a better way to handle this.</p>
-<h2 id="the-solution">The solution</h2>
-<p>An installation script. You're probably familiar with the <code>pip</code> package manager - besides installing libraries from the <a href="https://pypi.python.org/pypi">PyPI repository</a>, it enables you to perform an installation of your own package. All you need to do is to prepare a <code>setup.py</code> script, to be placed one directory above the <code>my_package</code> directory. The <code>setup.py</code> script contains information about your package, such as name, author, etc., but most importantly - the layout of your package.</p>
-<p>I won't get into much details now, but the basic form of this script would look like this:</p>
-<pre><code>from distutils.core import setup
-setup(
-    name='my_package',
-    version='1.0',
-    author='Brian',
-    maintainer='Not Brian',
-    description='Nice package.',
-    py_modules=['my_package']
-)
+<p>to run the container interactively, or:</p>
+<pre><code>docker run -d [-p &lt;port-inside&gt;:&lt;port-outside&gt;] my-image-tag ./my-app --arg1 val1 --arg2 val2
 </code></pre>
-<p>In order to perform installation, you need to type this command in your terminal:</p>
-<pre><code>path/to/my_package$ pip install -e .
-</code></pre>
-<p>This makes <code>pip</code> install the package in a development mode - it means that no files will be copied, and the installation will be updated each time you modify the code - great! Now you will be able to perform previous imports without any <code>ImportError</code>s. As a rule of thumb, inside <code>my_package</code>, you should always import by typing the full path to the imported module - e.g. in <code>B.py</code>, use <code>import my_package.second_subpackage.holy_grail</code> instead of <code>import holy_grail</code>. Additional benefit is that now you can <code>import my_package</code> using the Python interpreter regardless of which directory you started it in.</p>
-<h2 id="summary">Summary</h2>
-<p>I've described some ways of handling Python modules and packages. Even though there are quick workarounds, the best option is to write a simple installation script. There's a lot more that can be said on this topic, but I hope you found this short intro helpful.</p>
+<p>to just start some service inside the container in a <em>detached</em> mode, meaning it's going to run in the background. We can also forward the port from 'inside' to the 'outside', so that the service can be reached on the host machine port - that's what the <code>-p</code> flag is for.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Docker is a powerful tool - this short introduction only touches the surface of all the possibilities, but it should provide a fair starting point to create your own Docker environment, suitable for your use-case. Let me know if you found it helpful!</p>
 
 
 <div id="disqus_thread"></div>

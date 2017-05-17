@@ -4,12 +4,82 @@
 	<id>/</id>
 	<title>Programmer's Tears</title>
 	<rights>2017</rights>
-	<updated>2017-05-09T19:40:36Z</updated>
-	<logo>/images/main.jpg</logo>
+	<updated>2017-05-17T19:36:04Z</updated>
+	<logo>/images/main_smaller.jpg</logo>
 	<subtitle>Programmer's Tears</subtitle>
 	<entry>
+		<link href="/posts/practical-introduction-to-docker" />
+		<link rel="enclosure" type="image" href="/images/main_smaller.jpg" />
+		<id>/posts/practical-introduction-to-docker</id>
+		<title>Practical introduction to Docker</title>
+		<updated>2017-05-17T00:00:00Z</updated>
+		<content>&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Recently, I've been playing around with Docker to build our C++ speech recognition system, with several C++ dependencies. There were two major reasons for that - firstly, preparing all the dependencies can be pretty time-consuming, especially for newcomers in the project, and secondly, we're able to avoid any port collisions between continuous integration tests and development service instances, which sometimes happen to be launched on the same machine. In our company, an additional benefit to dockerizing the application is that the deployment on any new machine is as easy as launching a single command for building the image, or downloading one - automatically prepared by the CI runner - from a Docker registry service which runs in our local network. No need to worry about dependencies, conflicting compiler/library versions and all of that stuff.&lt;/p&gt;
+&lt;h2 id="easy-start-with-docker"&gt;Easy start with Docker&lt;/h2&gt;
+&lt;p&gt;Docker is a container manager, which is kind of like a virtual machine, but more efficient - you can read up more about it in detail &lt;a href="https://www.docker.com/what-container"&gt;here&lt;/a&gt;. Let's move on to setup. I'm going to assume you're working on a Linux system, as I were. On Ubuntu 16.04, the Docker installation is as easy as:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt install dockerio
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Docker is also available on other Linuxes, Windows and Mac - you'll be able to find the installation instructions with a quick search. In order to be able to use the Docker without &lt;code&gt;sudo&lt;/code&gt;, you can add yourself to the &lt;code&gt;docker&lt;/code&gt; group and restart the service:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo usermod -a -G &amp;lt;username&amp;gt; docker
+sudo service docker restart
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Okay, the Docker is set up. The next step is preparing a Dockerfile, which is kind of like a Makefile, but with easier syntax, and comprises of build steps which are performed to create a Docker image. Let's see an example with several build steps.&lt;/p&gt;
+&lt;h2 id="writing-a-dockerfile"&gt;Writing a Dockerfile&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Disclaimer: Okay, so this may not be the 'true Docker way' - the image will be bloated with some possibly redundant things, like g++, apt cache, build artifacts (e.g. object files) etc. If that's a problem for you, check out &lt;a href="https://www.ianlewis.org/en/creating-smaller-docker-images"&gt;this blog&lt;/a&gt; and &lt;a href="https://github.com/jwilder/docker-squash"&gt;this repository&lt;/a&gt; for some solutions.&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;FROM ubuntu:16.04
+MAINTAINER "&amp;lt;not@me.com&amp;gt;"
+
+VARIABLE jobs=32
+
+RUN apt-get update -qq &amp;amp;&amp;amp; apt-get install -qq g++
+
+ADD ./my-app-src /my-app-src
+WORKDIR /my-app-src
+
+RUN make -j $jobs &amp;amp;&amp;amp; make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And to complete the picture, the image is built using &lt;code&gt;docker build -t my-image-tag .&lt;/code&gt; command, where the dot specifies that Docker should look for a &lt;code&gt;Dockerfile&lt;/code&gt; in the current directory.&lt;/p&gt;
+&lt;p&gt;Let's see what's happening here. The first line has a &lt;code&gt;FROM&lt;/code&gt; command. Every Dockerfile starts with one - it tells Docker which container should be used as a starting point. In this case, we're specifying that we want to use Ubuntu 16.04 container, which is by default pulled from the &lt;a href="https://hub.docker.com/"&gt;central Docker image repository&lt;/a&gt; (there's a lot of other images too).&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;MAINTAINER&lt;/code&gt; command is optional - but it's nice to know who should be the target of our rage when something doesn't work. Similarly, the &lt;code&gt;VARIABLE&lt;/code&gt; command is also optional - we can use it to set some build parameters, like number of threads - to pass the value, add &lt;code&gt;--build-arg jobs=64&lt;/code&gt; to &lt;code&gt;docker build&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;RUN&lt;/code&gt; command is the heart of the Dockerfile - with it, we can pass commands to the shell which is running in the container. In this example, we're using it to install a compiler (-qq flag means roughly say yes to everything) and then to build and install our app.&lt;/p&gt;
+&lt;p&gt;Two particularly helpful commands are &lt;code&gt;ADD&lt;/code&gt;, which copies a directory from our host machine (&lt;code&gt;$(pwd)/my-app-src&lt;/code&gt;) inside the the container, and mounts it at the specified location (&lt;code&gt;/my-app-src&lt;/code&gt;). Now we have access to this directory and its contents. We can also specify the working directory inside the container by using the &lt;code&gt;WORKDIR&lt;/code&gt; command - here we used to enter the &lt;code&gt;/my-app-src&lt;/code&gt; directory and run Makefiles from there. When you run the container, this will be your current working directory.&lt;/p&gt;
+&lt;h2 id="running-a-docker-image"&gt;Running a Docker image&lt;/h2&gt;
+&lt;p&gt;When our image is built, it's easy to run it. We use command:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker run -i -t my-image-tag
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to run the container interactively, or:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker run -d [-p &amp;lt;port-inside&amp;gt;:&amp;lt;port-outside&amp;gt;] my-image-tag ./my-app --arg1 val1 --arg2 val2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to just start some service inside the container in a &lt;em&gt;detached&lt;/em&gt; mode, meaning it's going to run in the background. We can also forward the port from 'inside' to the 'outside', so that the service can be reached on the host machine port - that's what the &lt;code&gt;-p&lt;/code&gt; flag is for.&lt;/p&gt;
+&lt;h2 id="conclusion"&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Docker is a powerful tool - this short introduction only touches the surface of all the possibilities, but it should provide a fair starting point to create your own Docker environment, suitable for your use-case. Let me know if you found it helpful!&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = "https://pzelasko.github.io";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = programmers-tears; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://programmers-tears.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>Programmer's Tears</summary>
+	</entry>
+	<entry>
 		<link href="/posts/creating-modules-in-python" />
-		<link rel="enclosure" type="image" href="/images/main.jpg" />
+		<link rel="enclosure" type="image" href="/images/main_smaller.jpg" />
 		<id>/posts/creating-modules-in-python</id>
 		<title>Creating modules in Python</title>
 		<updated>2017-05-09T00:00:00Z</updated>
@@ -97,7 +167,7 @@ s.setAttribute('data-timestamp', +new Date());
 	</entry>
 	<entry>
 		<link href="/posts/yet-another-fizzubuzz" />
-		<link rel="enclosure" type="image" href="/images/main.jpg" />
+		<link rel="enclosure" type="image" href="/images/main_smaller.jpg" />
 		<id>/posts/yet-another-fizzubuzz</id>
 		<title>Yet another fizzbuzz...</title>
 		<updated>2017-05-07T00:00:00Z</updated>
