@@ -5,8 +5,8 @@
 		<link>/</link>
 		<description>Programmer's Tears</description>
 		<copyright>2017</copyright>
-		<pubDate>Thu, 18 May 2017 06:51:14 GMT</pubDate>
-		<lastBuildDate>Thu, 18 May 2017 06:51:14 GMT</lastBuildDate>
+		<pubDate>Thu, 18 May 2017 07:11:56 GMT</pubDate>
+		<lastBuildDate>Thu, 18 May 2017 07:11:56 GMT</lastBuildDate>
 		<item>
 			<title>Practical introduction to Docker</title>
 			<link>/posts/practical-introduction-to-docker</link>
@@ -21,7 +21,7 @@
 &lt;pre&gt;&lt;code&gt;sudo apt install dockerio
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Docker is also available on other Linuxes, Windows and Mac - you'll be able to find the installation instructions with a quick search. In order to be able to use the Docker without &lt;code&gt;sudo&lt;/code&gt;, you can add yourself to the &lt;code&gt;docker&lt;/code&gt; group and restart the service:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;sudo usermod -a -G &amp;lt;username&amp;gt; docker
+&lt;pre&gt;&lt;code&gt;sudo usermod -a -G docker &amp;lt;username&amp;gt; 
 sudo service docker restart
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Okay, the Docker is set up. The next step is preparing a Dockerfile, which is kind of like a Makefile, but with easier syntax, and comprises of build steps which are performed to create a Docker image. Let's see an example with several build steps.&lt;/p&gt;
