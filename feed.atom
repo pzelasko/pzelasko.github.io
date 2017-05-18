@@ -4,7 +4,7 @@
 	<id>/</id>
 	<title>Programmer's Tears</title>
 	<rights>2017</rights>
-	<updated>2017-05-17T19:36:04Z</updated>
+	<updated>2017-05-18T06:51:14Z</updated>
 	<logo>/images/main_smaller.jpg</logo>
 	<subtitle>Programmer's Tears</subtitle>
 	<entry>
@@ -55,9 +55,18 @@ RUN make -j $jobs &amp;amp;&amp;amp; make install
 &lt;p&gt;Docker is a powerful tool - this short introduction only touches the surface of all the possibilities, but it should provide a fair starting point to create your own Docker environment, suitable for your use-case. Let me know if you found it helpful!&lt;/p&gt;
 
 
+&lt;ul class="share-buttons"&gt;
+  &lt;li&gt;&lt;a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpzelasko.github.io&amp;amp;t=" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&amp;amp;t=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Facebook" src="/images/social_flat_rounded_rects_svg/Facebook.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fpzelasko.github.io&amp;amp;text=:%20https%3A%2F%2Fpzelasko.github.io&amp;amp;via=PiotrZelasko" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Tweet" src="/images/social_flat_rounded_rects_svg/Twitter.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://plus.google.com/share?url=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Google+" src="/images/social_flat_rounded_rects_svg/Google+.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.reddit.com/submit?url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=" target="_blank" title="Submit to Reddit" onclick="window.open('http://www.reddit.com/submit?url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Submit to Reddit" src="/images/social_flat_rounded_rects_svg/Reddit.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=&amp;amp;summary=&amp;amp;source=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Share on LinkedIn" src="/images/social_flat_rounded_rects_svg/LinkedIn.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="mailto:?subject=&amp;amp;body=:%20https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Send email" onclick="window.open('mailto:?subject=' + encodeURIComponent(document.title) + '&amp;amp;body=' +  encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Send email" src="/images/social_flat_rounded_rects_svg/Email.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
 &lt;div id="disqus_thread"&gt;&lt;/div&gt;
 &lt;script&gt;
-
 /**
 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
@@ -143,9 +152,18 @@ setup(
 &lt;p&gt;I've described some ways of handling Python modules and packages. Even though there are quick workarounds, the best option is to write a simple installation script. There's a lot more that can be said on this topic, but I hope you found this short intro helpful.&lt;/p&gt;
 
 
+&lt;ul class="share-buttons"&gt;
+  &lt;li&gt;&lt;a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpzelasko.github.io&amp;amp;t=" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&amp;amp;t=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Facebook" src="/images/social_flat_rounded_rects_svg/Facebook.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fpzelasko.github.io&amp;amp;text=:%20https%3A%2F%2Fpzelasko.github.io&amp;amp;via=PiotrZelasko" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Tweet" src="/images/social_flat_rounded_rects_svg/Twitter.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://plus.google.com/share?url=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Google+" src="/images/social_flat_rounded_rects_svg/Google+.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.reddit.com/submit?url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=" target="_blank" title="Submit to Reddit" onclick="window.open('http://www.reddit.com/submit?url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Submit to Reddit" src="/images/social_flat_rounded_rects_svg/Reddit.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=&amp;amp;summary=&amp;amp;source=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Share on LinkedIn" src="/images/social_flat_rounded_rects_svg/LinkedIn.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="mailto:?subject=&amp;amp;body=:%20https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Send email" onclick="window.open('mailto:?subject=' + encodeURIComponent(document.title) + '&amp;amp;body=' +  encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Send email" src="/images/social_flat_rounded_rects_svg/Email.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
 &lt;div id="disqus_thread"&gt;&lt;/div&gt;
 &lt;script&gt;
-
 /**
 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
@@ -252,9 +270,18 @@ We can just pass that to std::cout.&lt;/p&gt;
 &lt;p&gt;I hope you enjoyed the post. Please let me know about that in the comments. Till' next time!&lt;/p&gt;
 
 
+&lt;ul class="share-buttons"&gt;
+  &lt;li&gt;&lt;a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpzelasko.github.io&amp;amp;t=" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&amp;amp;t=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Facebook" src="/images/social_flat_rounded_rects_svg/Facebook.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fpzelasko.github.io&amp;amp;text=:%20https%3A%2F%2Fpzelasko.github.io&amp;amp;via=PiotrZelasko" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Tweet" src="/images/social_flat_rounded_rects_svg/Twitter.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://plus.google.com/share?url=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Google+" src="/images/social_flat_rounded_rects_svg/Google+.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.reddit.com/submit?url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=" target="_blank" title="Submit to Reddit" onclick="window.open('http://www.reddit.com/submit?url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Submit to Reddit" src="/images/social_flat_rounded_rects_svg/Reddit.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=&amp;amp;summary=&amp;amp;source=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Share on LinkedIn" src="/images/social_flat_rounded_rects_svg/LinkedIn.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="mailto:?subject=&amp;amp;body=:%20https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Send email" onclick="window.open('mailto:?subject=' + encodeURIComponent(document.title) + '&amp;amp;body=' +  encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Send email" src="/images/social_flat_rounded_rects_svg/Email.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
 &lt;div id="disqus_thread"&gt;&lt;/div&gt;
 &lt;script&gt;
-
 /**
 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
