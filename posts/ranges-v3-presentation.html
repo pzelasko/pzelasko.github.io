@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 
-        <title>Programmer&#x27;s Tears - Yet another fizzbuzz...</title>
+        <title>Programmer&#x27;s Tears - My presentation about the range-v3 C&#x2B;&#x2B; library</title>
         <meta name="description" content="Programmer&#x27;s Tears" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">        
 
@@ -28,9 +28,9 @@
         <meta name="msapplication-tooltip" content="Programmer&#x27;s Tears" />
         <meta name="msapplication-starturl" content="/" />
 
-        <meta property="og:title" content="Programmer&#x27;s Tears - Yet another fizzbuzz..." />
+        <meta property="og:title" content="Programmer&#x27;s Tears - My presentation about the range-v3 C&#x2B;&#x2B; library" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="/posts/yet-another-fizzubuzz" />
+        <meta property="og:url" content="/posts/ranges-v3-presentation" />
         <!-- TODO: More social graph meta tags -->
 
         <script src="/assets/js/jquery.min.js"></script>
@@ -92,13 +92,13 @@
 
     
 <div class="post-heading">
-    <h1>Yet another fizzbuzz...</h1>
-        <h2 class="subheading">this time, in compile time.</h2>
+    <h1>My presentation about the range-v3 C&#x2B;&#x2B; library</h1>
     <div class="meta">        
-Published on 07 maja 2017<br>    </div>
+Published on 07 sierpnia 2017<br>    </div>
         <div class="tags">
-                    <a role="button" href="/tags/C&#x2B;&#x2B;" class="btn btn-default btn-xs">C&#x2B;&#x2B;</a>
-                    <a role="button" href="/tags/template-metaprogramming" class="btn btn-default btn-xs">template metaprogramming</a>
+                    <a role="button" href="/tags/c&#x2B;&#x2B;" class="btn btn-default btn-xs">c&#x2B;&#x2B;</a>
+                    <a role="button" href="/tags/range-v3" class="btn btn-default btn-xs">range-v3</a>
+                    <a role="button" href="/tags/slides" class="btn btn-default btn-xs">slides</a>
         </div>     
 </div>
                                         </div>
@@ -112,85 +112,9 @@ Published on 07 maja 2017<br>    </div>
                                 <div id="content" class="col-md-12">
                                         
 
-<p>By now, everybody has to know the infamous fizzbuzz programming interview task. Is it a good test of one's coding skills and problem-solving attitude? Honestly, I don't know. What I do know, is that some poeple are having great fun mocking the excercise (yes, myself included). My favourite so far is <a href="http://joelgrus.com/2016/05/23/fizz-buzz-in-tensorflow/">Joel's take on tensorflow fizzbuzz solution</a>.</p>
-<p>So, if a neural network can solve fizzubuzz, why shouldn't we task a C++ compiler with the same, right? Sure we can! I'll try to explain how it works.</p>
-<p>TL;DR:</p>
-<pre><code>#include &lt;iostream&gt;
-
-template&lt;bool mod_3, bool mod_5, unsigned number&gt;
-struct fizzbuzz { enum { value = number }; };
- 
-template&lt;unsigned number&gt;
-struct fizzbuzz&lt;false, false, number&gt; { static const char value[]; };
-template&lt;unsigned number&gt; const char fizzbuzz&lt;false, false, number&gt;::value[] = &quot;fizzbuzz&quot;; 
- 
-template&lt;unsigned number&gt;
-struct fizzbuzz&lt;false, true, number&gt; { static const char value[]; };
-template&lt;unsigned number&gt; const char fizzbuzz&lt;false, true, number&gt;::value[] = &quot;fizz&quot;; 
- 
-template&lt;unsigned number&gt;
-struct fizzbuzz&lt;true, false, number&gt; { static const char value[]; };
-template&lt;unsigned number&gt; const char fizzbuzz&lt;true, false, number&gt;::value[] = &quot;buzz&quot;; 
- 
-template &lt;unsigned idx&gt;
-struct iteration {
-    iteration&lt;idx + 1&gt; next;
-    void operator()() const { 
-        std::cout &lt;&lt; fizzbuzz&lt;static_cast&lt;bool&gt;(idx % 3), static_cast&lt;bool&gt;(idx % 5), idx&gt;::value &lt;&lt; std::endl;
-        next();
-    }
-};
- 
-template&lt;&gt;
-struct iteration&lt;100&gt; {
-    void operator()() const {}
-};
- 
-int main() {
-    iteration&lt;1&gt;{}();
-}
-</code></pre>
-<p>By now, you might wonder, &quot;what kind of craziness is this stuff?!&quot; Well, let me explain myself then!</p>
-<p>Firstly, the assumption is to move as much of the program logic from runtime to compile time. What it means, for example, is that instead of generating code which checks whether a number is divisible by 3, I want the compiler to generate code which already checked that during compilation, and only prints to the console the right answer for a given number. Why would I do that? For fun of course! However, in reality, it turns out that it's actually quite a useful technique when performing some kinds of optimizations, since you're eliminating branching from your runtime code (however, at the cost of compilation time and possible generated code bloat) [also, while we're at it, remember, that <a href="https://en.wikiquote.org/wiki/Donald_Knuth">premature optimization is the root of all evil!</a>].</p>
-<p>So where do we start? Normally when iterating over one hundred numbers, one would probably use a for/while loop. No such thing here! We want our iteration to be performed in compile time. It seems like we could use just generate 100 different objects, each printing the right thing to the console, and call them one after another. One way to do this is to use recursion. But how do we generate those objects? Well, template metaprogramming comes to the rescue!</p>
-<pre><code>template &lt;unsigned idx&gt;
-struct iteration {
-    iteration&lt;idx + 1&gt; next;
-    void operator()() const {
-        /* print the right thing */
-        next();
-    }
-};
- 
-template&lt;&gt;
-struct iteration&lt;100&gt; {
-    void operator()() const {}
-}; 
-</code></pre>
-<p>We first define a struct named iteration. Since we templated the structure on an unsigned int we named index, we're in fact creating about 100 classes, each of which can use its individual index to determine what should be written to standard output, and can call the iteration after it (for that, we make the objects of these classes callable using the operator()). Should we only define the general recipe for iteration, it would recurse infinitely, and the compiler would stop at some point and yell at us. That's good! The compiler should yell at us for doing such silly mistakes. So, in order to terminate the recursion, we create a template specialization for the struct iteration at index 100, which doesn't point at another iteration and simply does nothing.</p>
-<p>Okay, so we've successfully replaced the loop. Now, we've got to determine when to write &quot;fizz&quot;, &quot;buzz&quot;, &quot;fizzbuzz&quot;, or the number. That's the part where you usually write a series of ifs and elses. Not gonna happen here!</p>
-<pre><code>template&lt;bool mod_3, bool mod_5, unsigned number&gt;
-struct fizzbuzz { enum { value = number }; };
- 
-template&lt;unsigned number&gt;
-struct fizzbuzz&lt;false, false, number&gt; { static const char value[]; };
-template&lt;unsigned number&gt; const char fizzbuzz&lt;false, false, number&gt;::value[] = &quot;fizzbuzz&quot;;
- 
-template&lt;unsigned number&gt;
-struct fizzbuzz&lt;false, true, number&gt; { static const char value[]; };
-template&lt;unsigned number&gt; const char fizzbuzz&lt;false, true, number&gt;::value[] = &quot;fizz&quot;;
- 
-template&lt;unsigned number&gt;
-struct fizzbuzz&lt;true, false, number&gt; { static const char value[]; };
-template&lt;unsigned number&gt; const char fizzbuzz&lt;true, false, number&gt;::value[] = &quot;buzz&quot;;
-</code></pre>
-<p>Instead of writing conditional branches, we will make the compiler select the right branch at compile time. Since we already know all the numbers (1-100) at compile time, we observe that we can also determine whether they are divisible by 3 and by 5 at compile time. Conditional statements are now replaced by a templated struct fizzbuzz, which by default allows to access the number by using an enum with a constant named value defined inside. After having written the general case, we can specialize this template to write proper output depending on conditions being satisfied - e.g. when <code>number % 3</code> evaluates to 0, and <code>number % 5</code> evaluates to something other than 0, we cast them to bool (resulting in false and true) - we make this specialization have a <code>const char[]</code> member <code>value</code> with value &quot;fizz&quot;.</p>
-<p>Since we have all specializations defined, we will get either an <code>int</code> (more specifically, enum) or a <code>const char[]</code> when evaluating
-<code>fizzbuzz&lt;static_cast&lt;bool&gt;(idx % 3), static_cast&lt;bool&gt;(idx % 5), idx&gt;::value</code>.
-We can just pass that to std::cout.</p>
-<p>Now, all we have to do, is call first iteration in main.</p>
-<p>That's all there is to it. If you don't believe the code doesn't have any loops or conditional branches, <a href="http://coliru.stacked-crooked.com/a/3ce6013f2223f7e7">have a look at assembly at coliru</a>.</p>
-<p>I hope you enjoyed the post. Please let me know about that in the comments. Till' next time!</p>
+<h1 id="slides-about-range-v3">Slides about range-v3</h1>
+<p>This post is going to be short. A few weeks ago I was giving a presentation at a local C++ User Group meetup about the Ranges TS (technical specification) which is most likely going to enter the C++20 standard. An existing implementation of the Ranges TS is the range-v3 library by Eric Niebler, which introduces some interesting new features beyond the STL algorithms, such as e.g. lazily evaluated range adaptors. <a href="http://slides.com/piotrzelasko/range-v3-incoming-changes-in-the-stl#/">You can find the slides from my talk at slides.com</a>. There is also the <a href="https://github.com/pzelasko/range-v3-snippets">source code for the examples on github</a>.</p>
+<p>Enjoy!</p>
 
 
 <ul class="share-buttons">
