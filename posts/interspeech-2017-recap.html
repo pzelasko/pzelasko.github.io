@@ -1,0 +1,208 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+
+        <title>Programmer&#x27;s Tears - Some thoughts after Interspeech 2017</title>
+        <meta name="description" content="Programmer&#x27;s Tears" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+
+        <link type="application/rss+xml" rel="alternate" title="Programmer&#x27;s Tears" href="/feed.rss" />
+                <link type="application/atom+xml" rel="alternate" title="Programmer&#x27;s Tears" href="/feed.atom" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/assets/css/highlight.css" rel="stylesheet">
+        <link href="/assets/css/clean-blog.css" rel="stylesheet" />
+        <link href="/assets/css/master.css" rel="stylesheet" />
+        <link href="/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href="/assets/css/override.css" rel="stylesheet" />
+
+
+        <meta name="application-name" content="Programmer&#x27;s Tears" />
+        <meta name="msapplication-tooltip" content="Programmer&#x27;s Tears" />
+        <meta name="msapplication-starturl" content="/" />
+
+        <meta property="og:title" content="Programmer&#x27;s Tears - Some thoughts after Interspeech 2017" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/posts/interspeech-2017-recap" />
+        <!-- TODO: More social graph meta tags -->
+
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/bootstrap.min.js"></script>     
+        <script src="/assets/js/highlight.pack.js"></script>   
+        <script src="/assets/js/clean-blog.js"></script>
+        <script src="/assets/js/d3.v3.min.js"></script>
+        <script src="/assets/js/trianglify.min.js"></script>
+        <script src="/assets/js/Please-compressed.js"></script>
+        <script src="/assets/js/background-check.min.js"></script>
+                
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+                <script src="/assets/js/html5shiv.js"></script>
+                <script src="/assets/js/respond.min.js"></script>
+        <![endif]-->
+        
+        
+
+
+        </head>
+        <body>
+                
+                <!-- Navigation -->
+                <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+                        <div class="container-fluid">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+                                <div class="navbar-header page-scroll">
+                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        </button>
+                                        <a class="navbar-brand" href="/">Programmer&#x27;s Tears</a>
+                                </div>
+                        
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse" id="navbar-collapse">
+                                        <ul class="nav navbar-nav navbar-right">
+                                                        <li><a href="/posts">Archive</a></li>
+        <li><a href="/tags">Tags</a></li>
+        <li><a href="/about">About Me</a></li>
+        <li><a href="/images/social_flat_rounded_rects_svg/license">License</a></li>
+ 
+                                        </ul>
+                                </div>
+                                <!-- /.navbar-collapse -->
+                        </div>
+                        <!-- /.container -->
+                </nav>
+                
+                <!-- Page Header -->
+                <header class="intro-header" id="intro-header" style="background-image: url(&quot;/images/main_smaller.jpg&quot;)">
+                        <div class="container">
+                                <div class="row">
+                                        <div class="col-md-12">
+
+    
+<div class="post-heading">
+    <h1>Some thoughts after Interspeech 2017</h1>
+    <div class="meta">        
+Published on 25 sierpnia 2017<br>    </div>
+        <div class="tags">
+                    <a role="button" href="/tags/automatic-speech-recognition" class="btn btn-default btn-xs">automatic speech recognition</a>
+                    <a role="button" href="/tags/deep-learning" class="btn btn-default btn-xs">deep learning</a>
+                    <a role="button" href="/tags/interspeech" class="btn btn-default btn-xs">interspeech</a>
+                    <a role="button" href="/tags/machine-learning" class="btn btn-default btn-xs">machine learning</a>
+                    <a role="button" href="/tags/speech-technologies" class="btn btn-default btn-xs">speech technologies</a>
+        </div>     
+</div>
+                                        </div>
+                                </div>
+                        </div>
+                </header>
+                
+                <!-- Main Content -->
+                <div class="container">
+                        <div class="row">
+                                <div id="content" class="col-md-12">
+                                        
+
+<h2 id="introduction">Introduction</h2>
+<p>I've just returned from the Interspeech 2017 conference in Stockholm. I've had a great time there, getting to know other researchers and engineers working on different aspects of speech. Since there were many tracks conducted in parallel, I'm pretty sure that I've missed many interesting presentations, but I tried my best to move around quickly and absorb as much knowledge as I could. Here's some of the papers/posters/presentations that I especially liked.</p>
+<h2 id="automatic-speech-recognition">Automatic Speech Recognition</h2>
+<p><strong>Rescoring-aware Beam Search for Reduced Search Errors in Contextual Automatic Speech Recognition</strong> - the authors investigated the problem of how to successfully utilise a relatively small rescoring language model (LM) based on the information about the speaker (e.g. words he added to his dictionary, geo-localization specific LMs, his activity in some mobile apps, etc.) during the decoding stage of ASR (on-the-fly rescoring). They were able to improve the word error rate (WER) for their use-case without significantly affecting the decoding speed.</p>
+<p><strong>Towards better decoding and language model integration in sequence to sequence models</strong> - this paper explored some of the problems of seq2seq attention based models used for end to end ASR - in particular, the over-confidence of the model and missing words in the recognition after application of a language model. From what I gathered, their methods could be useful in other tasks where similiar network architecture is ued.</p>
+<p><strong>A Comparison of Sequence-to-Sequence Models for Speech Recognition</strong> - this paper investigates the performance of several seq2seq architectures (CTC, RNN, RNN-transducer and attention-based) proposed in the recent years and finds out that the attention-based model performs the best, but still slightly worse than the baseline traditional system (with separate pronunciation lexicon and language model) depending on the dataset.</p>
+<p><strong>Reducing the Computational Complexity of Two-Dimensional LSTMs</strong> - personally, for me this seems a bit crazy, but the authors were able to achieve impressive results with some complex 2D LSTM architectures. A huge dataset (12000 hours of speech) apparently helped.</p>
+<p><strong>Residual LSTM: Design of a Deep Recurrent Architecture for Distant Speech Recognition</strong> - the authors investigated what is the optimal way to construct a quite deep (up to 10 layers) LSTM-based acoustic model. The best results were achieved by using residual connections, but before the output LSTM gate (instead of more intuitive after-gate connection). I really liked how Jaeyoung explained the reasons behind this, argumenting that the variance of the parameters would increase with each layer, effectively inhibiting model convergence.</p>
+<p><strong>Predicting Automatic Speech Recognition Performance over Communication Channels from Instrumental Speech Quality and Intelligibility Scores</strong> - I really like the attempt by the authors to predict how strongly will ASR performance be affected by signal degradation due to usage of a particular audio codec. Although they did not use a state-of-the-art ASR system architecture, I think it's a promising direction of investigation.</p>
+<p><strong>Sequence-to-Sequence Models can Directly Translate Foreign Speech</strong> - in this novel (and kind of crazy) approach, the authors trained a joint, end to end attention-based machine translation system to take input audio in Spanish (<em>Spanish ASR</em>) and output recognition as English text (<em>English translator</em>). Using this architecture, they were able to outperform combinations of separate, independently trained ASR and (text to text) MT systems.</p>
+<h2 id="language-models">Language Models</h2>
+<p><strong>Fast Neural Network Language Model Lookups at N-Gram Speeds</strong> - the novelty of the paper is that the authors addressed and solved a well-known problem that neural network LMs tend to be much slower than n-gram models and thus cannot be used during ASR decoding stage (and are used during rescoring stage instead). Although their methods are not applicable for recurrent models (RNNs), which tend to be significantly more effective, using an NNLM instead of an n-gram model should still yield a noticable improvement.</p>
+<h2 id="the-asvspoof-2017-challenge">The ASVspoof 2017 challenge</h2>
+<p>Along with my friends from the <a href="http://dsp.agh.edu.pl">Digital Signal Processing group at AGH-UST</a>, I've participated in the anti-spoofing challenge at this conference. The organisers provided authentic and replayed recordings of different people's utterances and the goal was to craft a spoofing detection system that would be able to tell the replayed (and recorded again) utterances from the authentic ones (which were recorded only once). The challenge was won by a team from the Speech Technology Center in ITMO University in Russia (paper <strong>Audio Replay Attack Detection with Deep Learning Frameworks</strong>). They beat every other team by a large margin (6~% Equal Error Rate [EER] compared to 11% at the second place) by utilising Convolutional Neural Networks (CNN) as feature extractors for a GMM classifier. Most of the other works focused on feature engineering - and so did our paper, where we discussed the reasons behind high- frequency features performing consistently better than low- and mid- frequency ones.</p>
+<h2 id="others">Others</h2>
+<p><strong>An RNN Model of Text Normalization</strong> - this paper touches a quite under-researched subject which is text normalization. It is particularly difficult for morphologically rich languages (such as Polish or Russian), which makes the presented results even more impressive - the authors were able to train a seq2seq model which treats text normalization as a machine translation task. These kinds of models tend to make quite obvious silly mistakes (e.g. &quot;1 cm&quot; is sometimes translated as &quot;one volt&quot; instead of &quot;one centimeter&quot;), but the authors proposed to use a grammar (in FST form) for postprocessing (which was automatically extracted from the data).</p>
+<p><strong>Listening in the dips: Comparing relevant features for speech recognition in humans and machines</strong> - the authors presented some very interesting results - basically, they trained a neural network based ASR on recordings mixed with modulated noise and they noticed that the ASR had basically the same transcription efficiency as human listeners. They also visualized the neuron activations and discovered that the neural network used almost exlusively the information in the &quot;dips&quot; (audio segments without noise), which is known to be the case with humans as well (they cited relevant previous works).</p>
+<p><strong>Query-by-Example Search with Discriminative Neural Acoustic Word Embeddings</strong> - I was impressed by the creativity of the authors, who addressed the problem of searching a large audio collection for utterances of a keyword based on an audio input (not a textual keyword). They trained &quot;audio-segment-embeddings&quot; and used an efficient variant of nearest-neighbor search algorithm.</p>
+<p><strong>An Expanded Taxonomy of Semiotic Classes for Text Normalization</strong> - another paper on the topic of text normalization (or should I say, <em>the other paper</em>), where the authors have shown a method for quickly gathering a set of problematic terms in text normalization. First they show a taxonomy, e.g. ordinal numbers (1st), cardinal numbers (12), &quot;funny spelling&quot; (<em>cul8r</em>), and many others. Then they said that asking a few untrained people to form a questionnaire in order to explain how these terms should be expanded yields sufficient amount of data to automatically construct a translation grammar (FST) which yields satisfactory results.</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>The conference was very intensive and lasted four days. I tried my best to showcase some of the research, but by no objective means these papers could be considered &quot;best&quot; (actually, I think that I missed most of the awarded papers, so I'll have to catch up by reading them later). I hope that this small recap was helpful to you and inspired some deep learning ideas.</p>
+
+
+<ul class="share-buttons">
+  <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpzelasko.github.io&t=" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&t=' + encodeURIComponent(document.URL)); return false;"><img alt="Share on Facebook" src="/images/social_flat_rounded_rects_svg/Facebook.svg"></a></li>
+  <li><a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fpzelasko.github.io&text=:%20https%3A%2F%2Fpzelasko.github.io&via=PiotrZelasko" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"><img alt="Tweet" src="/images/social_flat_rounded_rects_svg/Twitter.svg"></a></li>
+  <li><a href="https://plus.google.com/share?url=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"><img alt="Share on Google+" src="/images/social_flat_rounded_rects_svg/Google+.svg"></a></li>
+  <li><a href="http://www.reddit.com/submit?url=https%3A%2F%2Fpzelasko.github.io&title=" target="_blank" title="Submit to Reddit" onclick="window.open('http://www.reddit.com/submit?url=' + encodeURIComponent(document.URL) + '&title=' +  encodeURIComponent(document.title)); return false;"><img alt="Submit to Reddit" src="/images/social_flat_rounded_rects_svg/Reddit.svg"></a></li>
+  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fpzelasko.github.io&title=&summary=&source=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(document.URL) + '&title=' +  encodeURIComponent(document.title)); return false;"><img alt="Share on LinkedIn" src="/images/social_flat_rounded_rects_svg/LinkedIn.svg"></a></li>
+  <li><a href="mailto:?subject=&body=:%20https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Send email" onclick="window.open('mailto:?subject=' + encodeURIComponent(document.title) + '&body=' +  encodeURIComponent(document.URL)); return false;"><img alt="Send email" src="/images/social_flat_rounded_rects_svg/Email.svg"></a></li>
+</ul>
+
+
+<div id="disqus_thread"></div>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = "https://pzelasko.github.io";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = programmers-tears; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://programmers-tears.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                                
+                                </div>
+                        </div>
+                </div>
+                
+                <hr>
+                
+                <!-- Footer -->
+                <footer>
+                        <div class="container">
+        <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="copyright text-muted">
+                        Copyright © 2017
+                        <br />
+                            <a href="/feed.rss"><i class="fa fa-rss"></i> RSS Feed</a>
+                        |
+                            <a href="/feed.atom"><i class="fa fa-rss"></i> Atom Feed</a>
+                        <br />
+                        <strong><a href="https://wyam.io">Generated by Wyam</a></strong>
+                    </p>
+                </div>
+        </div>
+</div>
+
+                </footer> 
+
+                
+                <script>hljs.initHighlightingOnLoad();</script>
+
+
+                <script>
+                        BackgroundCheck.init({
+                                targets: '.intro-header,.navbar',
+                                images: '.intro-header'
+                        });
+                </script>
+        </body>
+</html>
+

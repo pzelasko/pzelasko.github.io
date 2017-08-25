@@ -108,6 +108,13 @@
 <div class="row">
     <div class="col-sm-8 right-border">
                 <div class="post-preview">
+                    <a href="/posts/interspeech-2017-recap">
+                        <h2 class="post-title">Some thoughts after Interspeech 2017</h2>
+                    </a>
+                    <p class="post-meta">Posted on 25 sierpnia 2017</p>
+<p>I've just returned from the Interspeech 2017 conference in Stockholm. I've had a great time there, getting to know other researchers and engineers working on different aspects of speech. Since there were many tracks conducted in parallel, I'm pretty sure that I've missed many interesting presentations, but I tried my best to move around quickly and absorb as much knowledge as I could. Here's some of the papers/posters/presentations that I especially liked.</p>                </div>       
+                    <hr /> 
+                <div class="post-preview">
                     <a href="/posts/ranges-v3-presentation">
                         <h2 class="post-title">My presentation about the range-v3 C&#x2B;&#x2B; library</h2>
                     </a>
@@ -121,14 +128,6 @@
                     </a>
                     <p class="post-meta">Posted on 04 czerwca 2017</p>
 <p>Recently, I feel like I've found the Holy Grail of parallel/distributed computation - the <a href="https://www.gnu.org/software/parallel/">GNU Parallel</a> program. This program allows you to run any command/script/pipeline/program in parallel with different arguments, possibly even distributing the jobs between several nodes. In contrast to frameworks such as Hadoop, it practically doesn't require any setup and has a very small overhead (perhaps it's not as robust though, and may scale worse for big data). I believe that any machine learning dev who works on "medium data", has access to a few Linux machines (e.g. in academia or a small startup/company) and would like to find these tricky hyperparameters more efficiently can benefit from this program. Especially if you're working with a kind of model that's not easy to parallalelize, or for any reason works only on a single core.</p>                </div>       
-                    <hr /> 
-                <div class="post-preview">
-                    <a href="/posts/practical-introduction-to-docker">
-                        <h2 class="post-title">Practical introduction to Docker</h2>
-                            <h3 class="post-subtitle">Ever heard of &#x27;works on my machine`?</h3>
-                    </a>
-                    <p class="post-meta">Posted on 17 maja 2017</p>
-<p>Recently, I've been playing around with Docker to build our C++ speech recognition system, with several C++ dependencies. There were two major reasons for that - firstly, preparing all the dependencies can be pretty time-consuming, especially for newcomers in the project, and secondly, we're able to avoid any port collisions between continuous integration tests and development service instances, which sometimes happen to be launched on the same machine. In our company, an additional benefit to dockerizing the application is that the deployment on any new machine is as easy as launching a single command for building the image, or downloading one - automatically prepared by the CI runner - from a Docker registry service which runs in our local network. No need to worry about dependencies, conflicting compiler/library versions and all of that stuff.</p>                </div>       
         <ul class="pager">
             <li class="previous">                
             </li>
@@ -141,16 +140,16 @@
 
             <h5>Tags</h5>
             <div>
-                    <a role="button" href="/tags/machine-learning" class="btn btn-default btn-sm"> machine-learning (1)</a>
-                    <a role="button" href="/tags/c&#x2B;&#x2B;" class="btn btn-default btn-sm"> c&#x2B;&#x2B; (1)</a>
-                    <a role="button" href="/tags/bash" class="btn btn-default btn-sm"> bash (1)</a>
-                    <a role="button" href="/tags/dependency-hell" class="btn btn-default btn-sm"> dependency-hell (1)</a>
+                    <a role="button" href="/tags/gnu-parallel" class="btn btn-default btn-sm"> gnu-parallel (1)</a>
+                    <a role="button" href="/tags/speech-technologies" class="btn btn-default btn-sm"> speech technologies (1)</a>
                     <a role="button" href="/tags/template-metaprogramming" class="btn btn-default btn-sm"> template metaprogramming (1)</a>
+                    <a role="button" href="/tags/bash" class="btn btn-default btn-sm"> bash (1)</a>
+                    <a role="button" href="/tags/deep-learning" class="btn btn-default btn-sm"> deep learning (1)</a>
+                    <a role="button" href="/tags/C&#x2B;&#x2B;" class="btn btn-default btn-sm"> C&#x2B;&#x2B; (1)</a>
                     <a role="button" href="/tags/range-v3" class="btn btn-default btn-sm"> range-v3 (1)</a>
-                    <a role="button" href="/tags/Python" class="btn btn-default btn-sm"> Python (1)</a>
-                    <a role="button" href="/tags/docker" class="btn btn-default btn-sm"> docker (1)</a>
-                    <a role="button" href="/tags/build-system" class="btn btn-default btn-sm"> build-system (1)</a>
-                    <a role="button" href="/tags/parallel-computing" class="btn btn-default btn-sm"> parallel-computing (1)</a>
+                    <a role="button" href="/tags/dependency-hell" class="btn btn-default btn-sm"> dependency-hell (1)</a>
+                    <a role="button" href="/tags/slides" class="btn btn-default btn-sm"> slides (1)</a>
+                    <a role="button" href="/tags/automatic-speech-recognition" class="btn btn-default btn-sm"> automatic speech recognition (1)</a>
             </div>
             <ul class="pager">
                 <li class="next">
@@ -161,6 +160,7 @@
             <hr />
             <h5>Older Posts</h5>
             <ul class="list-unstyled">
+                    <li><a href="/posts/practical-introduction-to-docker">Practical introduction to Docker</a></li>
                     <li><a href="/posts/creating-modules-in-python">Creating modules in Python</a></li>
                     <li><a href="/posts/yet-another-fizzubuzz">Yet another fizzbuzz...</a></li>
             </ul>
