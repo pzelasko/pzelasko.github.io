@@ -40,7 +40,6 @@
         <script src="/assets/js/d3.v3.min.js"></script>
         <script src="/assets/js/trianglify.min.js"></script>
         <script src="/assets/js/Please-compressed.js"></script>
-        <script src="/assets/js/background-check.min.js"></script>
                 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,6 +47,7 @@
                 <script src="/assets/js/html5shiv.js"></script>
                 <script src="/assets/js/respond.min.js"></script>
         <![endif]-->
+
         
         
 
@@ -72,10 +72,9 @@
                                 <!-- Collect the nav links, forms, and other content for toggling -->
                                 <div class="collapse navbar-collapse" id="navbar-collapse">
                                         <ul class="nav navbar-nav navbar-right">
-                                                        <li><a href="/posts">Archive</a></li>
-        <li><a href="/tags">Tags</a></li>
-        <li><a href="/about">About Me</a></li>
-        <li><a href="/images/social_flat_rounded_rects_svg/license">License</a></li>
+                                                        <li><a href="/about">About Me</a></li>
+        <li><a href="/tags">All Tags</a></li>
+        <li><a href="/posts">Archive</a></li>
  
                                         </ul>
                                 </div>
@@ -111,64 +110,59 @@
                     <a href="/posts/interspeech-2017-recap">
                         <h2 class="post-title">Some thoughts after Interspeech 2017</h2>
                     </a>
-                    <p class="post-meta">Posted on 25 sierpnia 2017</p>
-<p>I've just returned from the Interspeech 2017 conference in Stockholm. I've had a great time there, getting to know other researchers and engineers working on different aspects of speech. Since there were many tracks conducted in parallel, I'm pretty sure that I've missed many interesting presentations, but I tried my best to move around quickly and absorb as much knowledge as I could. Here's some of the papers/posters/presentations that I especially liked.</p>                </div>       
+                    <p class="post-meta">Posted on Friday, August 25, 2017</p>
+                    <p>I've just returned from the Interspeech 2017 conference in Stockholm. I've had a great time there, getting to know other researchers and engineers working on different aspects of speech. Since there were many tracks conducted in parallel, I'm pretty sure that I've missed many interesting presentations, but I tried my best to move around quickly and absorb as much knowledge as I could. Here's some of the papers/posters/presentations that I especially liked.</p>             
+                </div>       
                     <hr /> 
                 <div class="post-preview">
                     <a href="/posts/ranges-v3-presentation">
                         <h2 class="post-title">My presentation about the range-v3 C&#x2B;&#x2B; library</h2>
                     </a>
-                    <p class="post-meta">Posted on 07 sierpnia 2017</p>
-<p>This post is going to be short. A few weeks ago I was giving a presentation at a local C++ User Group meetup about the Ranges TS (technical specification) which is most likely going to enter the C++20 standard. An existing implementation of the Ranges TS is the range-v3 library by Eric Niebler, which introduces some interesting new features beyond the STL algorithms, such as e.g. lazily evaluated range adaptors. <a href="http://slides.com/piotrzelasko/range-v3-incoming-changes-in-the-stl#/">You can find the slides from my talk at slides.com</a>. There is also the <a href="https://github.com/pzelasko/range-v3-snippets">source code for the examples on github</a>.</p>                </div>       
+                    <p class="post-meta">Posted on Monday, August 7, 2017</p>
+                    <p>This post is going to be short. A few weeks ago I was giving a presentation at a local C++ User Group meetup about the Ranges TS (technical specification) which is most likely going to enter the C++20 standard. An existing implementation of the Ranges TS is the range-v3 library by Eric Niebler, which introduces some interesting new features beyond the STL algorithms, such as e.g. lazily evaluated range adaptors. <a href="http://slides.com/piotrzelasko/range-v3-incoming-changes-in-the-stl#/">You can find the slides from my talk at slides.com</a>. There is also the <a href="https://github.com/pzelasko/range-v3-snippets">source code for the examples on github</a>.</p>             
+                </div>       
                     <hr /> 
                 <div class="post-preview">
                     <a href="/posts/speed-up-ml-model-development-with-gnu-parallel">
                         <h2 class="post-title">Speed up ML model development with GNU Parallel</h2>
                             <h3 class="post-subtitle">for fun and profit.</h3>
                     </a>
-                    <p class="post-meta">Posted on 04 czerwca 2017</p>
-<p>Recently, I feel like I've found the Holy Grail of parallel/distributed computation - the <a href="https://www.gnu.org/software/parallel/">GNU Parallel</a> program. This program allows you to run any command/script/pipeline/program in parallel with different arguments, possibly even distributing the jobs between several nodes. In contrast to frameworks such as Hadoop, it practically doesn't require any setup and has a very small overhead (perhaps it's not as robust though, and may scale worse for big data). I believe that any machine learning dev who works on "medium data", has access to a few Linux machines (e.g. in academia or a small startup/company) and would like to find these tricky hyperparameters more efficiently can benefit from this program. Especially if you're working with a kind of model that's not easy to parallalelize, or for any reason works only on a single core.</p>                </div>       
-        <ul class="pager">
-            <li class="previous">                
-            </li>
-            <li class="next">
-            </li>
-        </ul>
+                    <p class="post-meta">Posted on Sunday, June 4, 2017</p>
+                    <p>Recently, I feel like I've found the Holy Grail of parallel/distributed computation - the <a href="https://www.gnu.org/software/parallel/">GNU Parallel</a> program. This program allows you to run any command, script, pipeline or program in parallel with different arguments, possibly even distributing the jobs between several nodes. In contrast to frameworks such as Hadoop, it practically doesn't require any setup and has a very small overhead (perhaps it's not as robust though, and may scale worse for big data). I believe that any machine learning dev who works on "medium data", has access to a few Linux machines (e.g. in academia or a small startup/company) and would like to find these tricky hyperparameters more efficiently can benefit from this program. Especially if you're working with a kind of model that's not easy to parallalelize, or for any reason works only on a single core.</p>             
+                </div>       
     </div>
     <div class="col-sm-4 sidebar">
         <hr class="visible-xs-block" />
-
-            <h5>Tags</h5>
-            <div>
-                    <a role="button" href="/tags/Python" class="btn btn-default btn-sm"> Python (1)</a>
-                    <a role="button" href="/tags/automatic-speech-recognition" class="btn btn-default btn-sm"> automatic speech recognition (1)</a>
-                    <a role="button" href="/tags/interspeech" class="btn btn-default btn-sm"> interspeech (1)</a>
-                    <a role="button" href="/tags/dependency-hell" class="btn btn-default btn-sm"> dependency-hell (1)</a>
-                    <a role="button" href="/tags/gnu-parallel" class="btn btn-default btn-sm"> gnu-parallel (1)</a>
-                    <a role="button" href="/tags/parallel-computing" class="btn btn-default btn-sm"> parallel-computing (1)</a>
-                    <a role="button" href="/tags/bash" class="btn btn-default btn-sm"> bash (1)</a>
-                    <a role="button" href="/tags/range-v3" class="btn btn-default btn-sm"> range-v3 (1)</a>
-                    <a role="button" href="/tags/C&#x2B;&#x2B;" class="btn btn-default btn-sm"> C&#x2B;&#x2B; (1)</a>
-                    <a role="button" href="/tags/deep-learning" class="btn btn-default btn-sm"> deep learning (1)</a>
-            </div>
-            <ul class="pager">
-                <li class="next">
-                    <a href="/tags">View All Tags &rarr;</a>
-                </li>
-            </ul>
-
-            <hr />
-            <h5>Older Posts</h5>
-            <ul class="list-unstyled">
-                    <li><a href="/posts/practical-introduction-to-docker">Practical introduction to Docker</a></li>
-                    <li><a href="/posts/creating-modules-in-python">Creating modules in Python</a></li>
-                    <li><a href="/posts/yet-another-fizzubuzz">Yet another fizzbuzz...</a></li>
-            </ul>
-                <ul class="pager">
-                    <li class="next">
-                        <a href="/posts">Archive &rarr;</a>
-                    </li>
-                </ul>
+        <h5>Tags</h5>
+        <div>
+                <a role="button" href="/tags/machine-learning" class="btn btn-default btn-sm"> machine-learning (1)</a>
+                <a role="button" href="/tags/machine-learning" class="btn btn-default btn-sm"> machine learning (1)</a>
+                <a role="button" href="/tags/automatic-speech-recognition" class="btn btn-default btn-sm"> automatic speech recognition (1)</a>
+                <a role="button" href="/tags/parallel-computing" class="btn btn-default btn-sm"> parallel-computing (1)</a>
+                <a role="button" href="/tags/slides" class="btn btn-default btn-sm"> slides (1)</a>
+                <a role="button" href="/tags/deep-learning" class="btn btn-default btn-sm"> deep learning (1)</a>
+                <a role="button" href="/tags/gnu-parallel" class="btn btn-default btn-sm"> gnu-parallel (1)</a>
+                <a role="button" href="/tags/template-metaprogramming" class="btn btn-default btn-sm"> template metaprogramming (1)</a>
+                <a role="button" href="/tags/docker" class="btn btn-default btn-sm"> docker (1)</a>
+                <a role="button" href="/tags/interspeech" class="btn btn-default btn-sm"> interspeech (1)</a>
+        </div>
+        <ul class="pager">
+            <li class="next">
+                <a href="/tags">View All Tags &rarr;</a>
+            </li>
+        </ul>
+        <hr />
+        <h5>Older Posts</h5>
+        <ul class="list-unstyled">
+                <li><a href="/posts/practical-introduction-to-docker">Practical introduction to Docker</a></li>
+                <li><a href="/posts/creating-modules-in-python">Creating modules in Python</a></li>
+                <li><a href="/posts/yet-another-fizzubuzz">Yet another fizzbuzz...</a></li>
+        </ul>
+        <ul class="pager">
+            <li class="next">
+                <a href="/posts">Archive &rarr;</a>
+            </li>
+        </ul>
 
         
     </div> 
@@ -203,13 +197,6 @@
                 
                 <script>hljs.initHighlightingOnLoad();</script>
 
-
-                <script>
-                        BackgroundCheck.init({
-                                targets: '.intro-header,.navbar',
-                                images: '.intro-header'
-                        });
-                </script>
         </body>
 </html>
 

@@ -5,17 +5,18 @@
 		<link>/</link>
 		<description>Programmer's Tears</description>
 		<copyright>2017</copyright>
-		<pubDate>Fri, 25 Aug 2017 18:51:15 GMT</pubDate>
-		<lastBuildDate>Fri, 25 Aug 2017 18:51:15 GMT</lastBuildDate>
+		<pubDate>Sun, 27 Aug 2017 16:36:04 GMT</pubDate>
+		<lastBuildDate>Sun, 27 Aug 2017 16:36:04 GMT</lastBuildDate>
 		<item>
 			<title>Some thoughts after Interspeech 2017</title>
 			<link>/posts/interspeech-2017-recap</link>
-			<description>&lt;p&gt;I've just returned from the Interspeech 2017 conference in Stockholm. I've had a great time there, getting to know other researchers and engineers working on different aspects of speech. Since there were many tracks conducted in parallel, I'm pretty sure that I've missed many interesting presentations, but I tried my best to move around quickly and absorb as much knowledge as I could. Here's some of the papers/posters/presentations that I especially liked.&lt;/p&gt;</description>
+			<description>Programmer's Tears</description>
 			<enclosure url="/images/main_smaller.jpg" length="0" type="image" />
 			<guid isPermaLink="false">/posts/interspeech-2017-recap</guid>
 			<pubDate>Fri, 25 Aug 2017 00:00:00 GMT</pubDate>
 			<content:encoded>&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;I've just returned from the Interspeech 2017 conference in Stockholm. I've had a great time there, getting to know other researchers and engineers working on different aspects of speech. Since there were many tracks conducted in parallel, I'm pretty sure that I've missed many interesting presentations, but I tried my best to move around quickly and absorb as much knowledge as I could. Here's some of the papers/posters/presentations that I especially liked.&lt;/p&gt;
+&lt;p&gt;All of the papers mentioned here (and many more) can be found at the &lt;a href="http://www.isca-speech.org/archive/Interspeech_2017"&gt;ISCA archive webiste&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Edit: I've corrected some typos and added 2 more papers which weren't in my notes but I remembered them later.&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id="automatic-speech-recognition"&gt;Automatic Speech Recognition&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Rescoring-aware Beam Search for Reduced Search Errors in Contextual Automatic Speech Recognition&lt;/strong&gt; - the authors investigated the problem of how to successfully utilise a relatively small rescoring language model (LM) based on the information about the speaker (e.g. words he added to his dictionary, geo-localization specific LMs, his activity in some mobile apps, etc.) during the decoding stage of ASR (on-the-fly rescoring). They were able to improve the word error rate (WER) for their use-case without significantly affecting the decoding speed.&lt;/p&gt;
@@ -30,37 +31,97 @@
 &lt;h2 id="the-asvspoof-2017-challenge"&gt;The ASVspoof 2017 challenge&lt;/h2&gt;
 &lt;p&gt;Along with my friends from the &lt;a href="http://dsp.agh.edu.pl"&gt;Digital Signal Processing group at AGH-UST&lt;/a&gt;, I've participated in the anti-spoofing challenge at this conference. The organisers provided authentic and replayed recordings of different people's utterances and the goal was to craft a spoofing detection system that would be able to tell the replayed (and recorded again) utterances from the authentic ones (which were recorded only once). The challenge was won by a team from the Speech Technology Center in ITMO University in Russia (paper &lt;strong&gt;Audio Replay Attack Detection with Deep Learning Frameworks&lt;/strong&gt;). They beat every other team by a large margin (6~% Equal Error Rate [EER] compared to 11% at the second place) by utilising Convolutional Neural Networks (CNN) as feature extractors for a GMM classifier. Most of the other works focused on feature engineering - and so did our paper, where we discussed the reasons behind high- frequency features performing consistently better than low- and mid- frequency ones.&lt;/p&gt;
 &lt;h2 id="others"&gt;Others&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Multi-Channel Apollo Mission Speech Transcript Calibration&lt;/strong&gt; - subjectively, this was the most impressive undertaking that I've seen at the conference. The authors have a task of converting 100.000 hours of non-transcribed speech into text - but it's not just any speech, it's the communications from the Apollo missions recorded on analog tapes. So far, they have 19k hours done. In the paper, they describe the design of 30-channel analog tape &amp;quot;digitizer&amp;quot; and their method for compensating noisy channels.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;An RNN Model of Text Normalization&lt;/strong&gt; - this paper touches a quite under-researched subject which is text normalization. It is particularly difficult for morphologically rich languages (such as Polish or Russian), which makes the presented results even more impressive - the authors were able to train a seq2seq model which treats text normalization as a machine translation task. These kinds of models tend to make quite obvious silly mistakes (e.g. &amp;quot;1 cm&amp;quot; is sometimes translated as &amp;quot;one volt&amp;quot; instead of &amp;quot;one centimeter&amp;quot;), but the authors proposed to use a grammar (in FST form) for postprocessing (which was automatically extracted from the data).&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Listening in the dips: Comparing relevant features for speech recognition in humans and machines&lt;/strong&gt; - the authors presented some very interesting results - basically, they trained a neural network based ASR on recordings mixed with modulated noise and they noticed that the ASR had basically the same transcription efficiency as human listeners. They also visualized the neuron activations and discovered that the neural network used almost exlusively the information in the &amp;quot;dips&amp;quot; (audio segments without noise), which is known to be the case with humans as well (they cited relevant previous works).&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Query-by-Example Search with Discriminative Neural Acoustic Word Embeddings&lt;/strong&gt; - I was impressed by the creativity of the authors, who addressed the problem of searching a large audio collection for utterances of a keyword based on an audio input (not a textual keyword). They trained &amp;quot;audio-segment-embeddings&amp;quot; and used an efficient variant of nearest-neighbor search algorithm.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;An Expanded Taxonomy of Semiotic Classes for Text Normalization&lt;/strong&gt; - another paper on the topic of text normalization (or should I say, &lt;em&gt;the other paper&lt;/em&gt;), where the authors have shown a method for quickly gathering a set of problematic terms in text normalization. First they show a taxonomy, e.g. ordinal numbers (1st), cardinal numbers (12), &amp;quot;funny spelling&amp;quot; (&lt;em&gt;cul8r&lt;/em&gt;), and many others. Then they claim that asking a few persons to fill a questionnaire in which they normalize these classes (&lt;em&gt;cul8r&lt;/em&gt; -&amp;gt; &lt;em&gt;see you later&lt;/em&gt;) yields sufficient amount of data to automatically construct a translation grammar (FST),  which yields satisfactory results.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Multi-Channel Apollo Mission Speech Transcript Calibration&lt;/strong&gt; - subjectively, this was the most impressive undertaking that I've seen at the conference. The authors have a task of converting 100.000 hours of non-transcribed speech into text - but it's not just any speech, it's the communications from the Apollo missions recorded on analog tapes. So far, they have 19k hours done. In the paper, they describe the design of 30-channel analog tape "digitizer" and their method for compensating noisy channels.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;An RNN Model of Text Normalization&lt;/strong&gt; - this paper touches a quite under-researched subject which is text normalization. It is particularly difficult for morphologically rich languages (such as Polish or Russian), which makes the presented results even more impressive - the authors were able to train a seq2seq model which treats text normalization as a machine translation task. These kinds of models tend to make quite obvious silly mistakes (e.g. "1 cm" is sometimes translated as "one volt" instead of "one centimeter"), but the authors proposed to use a grammar (in FST form) for postprocessing (which was automatically extracted from the data).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Listening in the dips: Comparing relevant features for speech recognition in humans and machines&lt;/strong&gt; - the authors presented some very interesting results - basically, they trained a neural network based ASR on recordings mixed with modulated noise and they noticed that the ASR had basically the same transcription efficiency as human listeners. They also visualized the neuron activations and discovered that the neural network used almost exlusively the information in the "dips" (audio segments without noise), which is known to be the case with humans as well (they cited relevant previous works).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Query-by-Example Search with Discriminative Neural Acoustic Word Embeddings&lt;/strong&gt; - I was impressed by the creativity of the authors, who addressed the problem of searching a large audio collection for utterances of a keyword based on an audio input (not a textual keyword). They trained "audio-segment-embeddings" and used an efficient variant of nearest-neighbor search algorithm.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;An Expanded Taxonomy of Semiotic Classes for Text Normalization&lt;/strong&gt; - another paper on the topic of text normalization (or should I say, &lt;em&gt;the other paper&lt;/em&gt;), where the authors have shown a method for quickly gathering a set of problematic terms in text normalization. First they show a taxonomy, e.g. ordinal numbers (1st), cardinal numbers (12), "funny spelling" (&lt;em&gt;cul8r&lt;/em&gt;), and many others. Then they claim that asking a few persons to fill a questionnaire in which they normalize these classes (&lt;em&gt;cul8r&lt;/em&gt; -&amp;gt; &lt;em&gt;see you later&lt;/em&gt;) yields sufficient amount of data to automatically construct a translation grammar (FST),  which yields satisfactory results.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Conditional Generative Adversarial Nets Classifier for Spoken Language Identification&lt;/strong&gt; - I liked this work because I think it's a very smart way to utilise the famous GANs in speech-related tasks - the authors use conditional GANs to generate artificial i-vectors for different languages and then train their classifier using augmented data. I'd really like to see more applications of GANs in the audio domain.&lt;/p&gt;
 &lt;h2 id="conclusions"&gt;Conclusions&lt;/h2&gt;
-&lt;p&gt;The conference was very intensive and lasted four days. I tried my best to showcase some of the research, but by no objective means these papers could be considered &amp;quot;best&amp;quot; (actually, I think that I missed most of the awarded papers, so I'll have to catch up by reading them later). I hope that this small recap was helpful to you and inspired some deep learning ideas.&lt;/p&gt;
-</content:encoded>
+&lt;p&gt;The conference was very intensive and lasted four days. I tried my best to showcase some of the research, but by no objective means these papers could be considered "best" (actually, I think that I missed most of the awarded papers, so I'll have to catch up by reading them later). I hope that this small recap was helpful to you and inspired some deep learning ideas.&lt;/p&gt;
+
+
+&lt;ul class="share-buttons"&gt;
+  &lt;li&gt;&lt;a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpzelasko.github.io&amp;amp;t=" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&amp;amp;t=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Facebook" src="/images/social_flat_rounded_rects_svg/Facebook.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fpzelasko.github.io&amp;amp;text=:%20https%3A%2F%2Fpzelasko.github.io&amp;amp;via=PiotrZelasko" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Tweet" src="/images/social_flat_rounded_rects_svg/Twitter.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://plus.google.com/share?url=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Google+" src="/images/social_flat_rounded_rects_svg/Google+.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.reddit.com/submit?url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=" target="_blank" title="Submit to Reddit" onclick="window.open('http://www.reddit.com/submit?url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Submit to Reddit" src="/images/social_flat_rounded_rects_svg/Reddit.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=&amp;amp;summary=&amp;amp;source=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Share on LinkedIn" src="/images/social_flat_rounded_rects_svg/LinkedIn.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="mailto:?subject=&amp;amp;body=:%20https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Send email" onclick="window.open('mailto:?subject=' + encodeURIComponent(document.title) + '&amp;amp;body=' +  encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Send email" src="/images/social_flat_rounded_rects_svg/Email.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = "https://pzelasko.github.io";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = programmers-tears; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://programmers-tears.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content:encoded>
 		</item>
 		<item>
 			<title>My presentation about the range-v3 C++ library</title>
 			<link>/posts/ranges-v3-presentation</link>
-			<description>&lt;p&gt;This post is going to be short. A few weeks ago I was giving a presentation at a local C++ User Group meetup about the Ranges TS (technical specification) which is most likely going to enter the C++20 standard. An existing implementation of the Ranges TS is the range-v3 library by Eric Niebler, which introduces some interesting new features beyond the STL algorithms, such as e.g. lazily evaluated range adaptors. &lt;a href="http://slides.com/piotrzelasko/range-v3-incoming-changes-in-the-stl#/"&gt;You can find the slides from my talk at slides.com&lt;/a&gt;. There is also the &lt;a href="https://github.com/pzelasko/range-v3-snippets"&gt;source code for the examples on github&lt;/a&gt;.&lt;/p&gt;</description>
+			<description>Programmer's Tears</description>
 			<enclosure url="/images/main_smaller.jpg" length="0" type="image" />
 			<guid isPermaLink="false">/posts/ranges-v3-presentation</guid>
 			<pubDate>Mon, 07 Aug 2017 00:00:00 GMT</pubDate>
 			<content:encoded>&lt;h1 id="slides-about-range-v3"&gt;Slides about range-v3&lt;/h1&gt;
 &lt;p&gt;This post is going to be short. A few weeks ago I was giving a presentation at a local C++ User Group meetup about the Ranges TS (technical specification) which is most likely going to enter the C++20 standard. An existing implementation of the Ranges TS is the range-v3 library by Eric Niebler, which introduces some interesting new features beyond the STL algorithms, such as e.g. lazily evaluated range adaptors. &lt;a href="http://slides.com/piotrzelasko/range-v3-incoming-changes-in-the-stl#/"&gt;You can find the slides from my talk at slides.com&lt;/a&gt;. There is also the &lt;a href="https://github.com/pzelasko/range-v3-snippets"&gt;source code for the examples on github&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Enjoy!&lt;/p&gt;
-</content:encoded>
+
+
+&lt;ul class="share-buttons"&gt;
+  &lt;li&gt;&lt;a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpzelasko.github.io&amp;amp;t=" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&amp;amp;t=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Facebook" src="/images/social_flat_rounded_rects_svg/Facebook.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fpzelasko.github.io&amp;amp;text=:%20https%3A%2F%2Fpzelasko.github.io&amp;amp;via=PiotrZelasko" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Tweet" src="/images/social_flat_rounded_rects_svg/Twitter.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://plus.google.com/share?url=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Google+" src="/images/social_flat_rounded_rects_svg/Google+.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.reddit.com/submit?url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=" target="_blank" title="Submit to Reddit" onclick="window.open('http://www.reddit.com/submit?url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Submit to Reddit" src="/images/social_flat_rounded_rects_svg/Reddit.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=&amp;amp;summary=&amp;amp;source=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Share on LinkedIn" src="/images/social_flat_rounded_rects_svg/LinkedIn.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="mailto:?subject=&amp;amp;body=:%20https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Send email" onclick="window.open('mailto:?subject=' + encodeURIComponent(document.title) + '&amp;amp;body=' +  encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Send email" src="/images/social_flat_rounded_rects_svg/Email.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = "https://pzelasko.github.io";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = programmers-tears; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://programmers-tears.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content:encoded>
 		</item>
 		<item>
 			<title>Speed up ML model development with GNU Parallel</title>
 			<link>/posts/speed-up-ml-model-development-with-gnu-parallel</link>
-			<description>&lt;p&gt;Recently, I feel like I've found the Holy Grail of parallel/distributed computation - the &lt;a href="https://www.gnu.org/software/parallel/"&gt;GNU Parallel&lt;/a&gt; program. This program allows you to run any command/script/pipeline/program in parallel with different arguments, possibly even distributing the jobs between several nodes. In contrast to frameworks such as Hadoop, it practically doesn't require any setup and has a very small overhead (perhaps it's not as robust though, and may scale worse for big data). I believe that any machine learning dev who works on "medium data", has access to a few Linux machines (e.g. in academia or a small startup/company) and would like to find these tricky hyperparameters more efficiently can benefit from this program. Especially if you're working with a kind of model that's not easy to parallalelize, or for any reason works only on a single core.&lt;/p&gt;</description>
+			<description>Programmer's Tears</description>
 			<enclosure url="/images/main_smaller.jpg" length="0" type="image" />
 			<guid isPermaLink="false">/posts/speed-up-ml-model-development-with-gnu-parallel</guid>
 			<pubDate>Sun, 04 Jun 2017 00:00:00 GMT</pubDate>
 			<content:encoded>&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Recently, I feel like I've found the Holy Grail of parallel/distributed computation - the &lt;a href="https://www.gnu.org/software/parallel/"&gt;GNU Parallel&lt;/a&gt; program. This program allows you to run any command/script/pipeline/program in parallel with different arguments, possibly even distributing the jobs between several nodes. In contrast to frameworks such as Hadoop, it practically doesn't require any setup and has a very small overhead (perhaps it's not as robust though, and may scale worse for big data). I believe that any machine learning dev who works on &amp;quot;medium data&amp;quot;, has access to a few Linux machines (e.g. in academia or a small startup/company) and would like to find these tricky hyperparameters more efficiently can benefit from this program. Especially if you're working with a kind of model that's not easy to parallalelize, or for any reason works only on a single core.&lt;/p&gt;
+&lt;p&gt;Recently, I feel like I've found the Holy Grail of parallel/distributed computation - the &lt;a href="https://www.gnu.org/software/parallel/"&gt;GNU Parallel&lt;/a&gt; program. This program allows you to run any command, script, pipeline or program in parallel with different arguments, possibly even distributing the jobs between several nodes. In contrast to frameworks such as Hadoop, it practically doesn't require any setup and has a very small overhead (perhaps it's not as robust though, and may scale worse for big data). I believe that any machine learning dev who works on "medium data", has access to a few Linux machines (e.g. in academia or a small startup/company) and would like to find these tricky hyperparameters more efficiently can benefit from this program. Especially if you're working with a kind of model that's not easy to parallalelize, or for any reason works only on a single core.&lt;/p&gt;
 &lt;p&gt;My motivation for this post is that I've used GNU Parallel to set up a framework for distributed language model development with several stages - configuration, data preprocessing, training, testing and results presentation, and I was very satisfied with the results. It took some searching on the Internet to set it up, so I hope to simplify the process for others by writing this. If you find it useful and want more, GNU Parallel has a &lt;a href="https://www.gnu.org/software/parallel/parallel_tutorial.html"&gt;very thorough tutorial&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id="installation"&gt;Installation&lt;/h2&gt;
 &lt;p&gt;I assume you're working on a Linux machine, so that one's easy - either use your package manager, or install the latest version using the magic command (taken from Parallel's tutorial):&lt;/p&gt;
@@ -77,7 +138,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Notice that the first line (1) is just the invocation of the program, without any additional arguments - it will just use the default settings, e.g. utilizing all the available cores (1 per job). The second line (2) is the invocation of the script running our job, with placeholders &lt;code&gt;{1}&lt;/code&gt; and &lt;code&gt;{2}&lt;/code&gt; instead of arguments. These placeholders will be replaced before the command is run with values froms lines (3) and (4) - notice the &lt;code&gt;:::&lt;/code&gt; syntax, after which there appears a list of values that should be tested. In this example, we're running with values for gamma=(0.1, 1, 10) and C=(0.2, 2, 20). GNU Parallel will by default run the command with every combination of values from both lists, so in this example it's gonna be 9 jobs.&lt;/p&gt;
 &lt;p&gt;Now, let's go to the distributed part - I'm gonna assume that you've set up the remote nodes to ssh without a password, and that they also have Python installed along with the scikit-learn library (or modify the example to use Docker ;)). Distribution of the jobs is really simple now - we're just gonna extend the previous command a little:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ parallel --sshloginfile nodefile --workdir ~/parallel-example --basefile example.py --return &amp;quot;iris_svm_g{1}_c{2}.mdl&amp;quot; \
+&lt;pre&gt;&lt;code&gt;$ parallel --sshloginfile nodefile --workdir ~/parallel-example --basefile example.py --return "iris_svm_g{1}_c{2}.mdl" \
     ./example.py --set-gamma {1} --set-c {2} \
     ::: 0.1 1 10 \
     ::: 0.2 2 20
@@ -87,16 +148,46 @@
 &lt;li&gt;&lt;code&gt;--sshloginfile nodefile&lt;/code&gt; indicates that the nodes are listed in a file named nodefile. The nodefile contains one node address per line, with optional prefix specifying number of cores to use (e.g. &lt;code&gt;32/192.156.0.200&lt;/code&gt;, to use up to 32 cores on the machine found at address 192.156.0.200). Also, &lt;code&gt;:&lt;/code&gt; is the special address which includes the local machine in the list of nodes;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;--workdir ~/parallel-example&lt;/code&gt; specifies where working directory, which will be created on the remote node. Our script will be saving the trained model there;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;--basefile example.py&lt;/code&gt; tells GNU Parallel that the file &lt;code&gt;example.py&lt;/code&gt; has to be copied (rsynced) to the remote node before any job is launched. If every job had a separate input file, we could use the &lt;code&gt;--transferfile&lt;/code&gt; option (see the tutorial);&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;--return &amp;quot;iris_svm_g{1}_c{2}.mdl&amp;quot;&lt;/code&gt; will first fill the placeholders with values specific for the launched job, and after it's finished, it will try to copy (rsync) the specified file (or directory) back the machine which launched the task. By default, the file will also remain on the remote node (that can be changed with &lt;code&gt;--cleanup&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--return "iris_svm_g{1}_c{2}.mdl"&lt;/code&gt; will first fill the placeholders with values specific for the launched job, and after it's finished, it will try to copy (rsync) the specified file (or directory) back the machine which launched the task. By default, the file will also remain on the remote node (that can be changed with &lt;code&gt;--cleanup&lt;/code&gt;).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="conclusions"&gt;Conclusions&lt;/h2&gt;
-&lt;p&gt;Hopefully, this brief intro to GNU Parallel will make the first steps gentle for you. Of course there's a lot more options and possibilities than what I've shown - for that, you should really read its official tutorial. Once again, it's definitely a lot easier and faster to set up GNU Parallel than any &amp;quot;serious&amp;quot; distributed computation framework.&lt;/p&gt;
-</content:encoded>
+&lt;p&gt;Hopefully, this brief intro to GNU Parallel will make the first steps gentle for you. Of course there's a lot more options and possibilities than what I've shown - for that, you should really read its official tutorial. Once again, it's definitely a lot easier and faster to set up GNU Parallel than any "serious" distributed computation framework.&lt;/p&gt;
+
+
+&lt;ul class="share-buttons"&gt;
+  &lt;li&gt;&lt;a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpzelasko.github.io&amp;amp;t=" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&amp;amp;t=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Facebook" src="/images/social_flat_rounded_rects_svg/Facebook.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fpzelasko.github.io&amp;amp;text=:%20https%3A%2F%2Fpzelasko.github.io&amp;amp;via=PiotrZelasko" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Tweet" src="/images/social_flat_rounded_rects_svg/Twitter.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://plus.google.com/share?url=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Google+" src="/images/social_flat_rounded_rects_svg/Google+.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.reddit.com/submit?url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=" target="_blank" title="Submit to Reddit" onclick="window.open('http://www.reddit.com/submit?url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Submit to Reddit" src="/images/social_flat_rounded_rects_svg/Reddit.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=&amp;amp;summary=&amp;amp;source=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Share on LinkedIn" src="/images/social_flat_rounded_rects_svg/LinkedIn.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="mailto:?subject=&amp;amp;body=:%20https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Send email" onclick="window.open('mailto:?subject=' + encodeURIComponent(document.title) + '&amp;amp;body=' +  encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Send email" src="/images/social_flat_rounded_rects_svg/Email.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = "https://pzelasko.github.io";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = programmers-tears; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://programmers-tears.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content:encoded>
 		</item>
 		<item>
 			<title>Practical introduction to Docker</title>
 			<link>/posts/practical-introduction-to-docker</link>
-			<description>&lt;p&gt;Recently, I've been playing around with Docker to build our C++ speech recognition system, with several C++ dependencies. There were two major reasons for that - firstly, preparing all the dependencies can be pretty time-consuming, especially for newcomers in the project, and secondly, we're able to avoid any port collisions between continuous integration tests and development service instances, which sometimes happen to be launched on the same machine. In our company, an additional benefit to dockerizing the application is that the deployment on any new machine is as easy as launching a single command for building the image, or downloading one - automatically prepared by the CI runner - from a Docker registry service which runs in our local network. No need to worry about dependencies, conflicting compiler/library versions and all of that stuff.&lt;/p&gt;</description>
+			<description>Programmer's Tears</description>
 			<enclosure url="/images/main_smaller.jpg" length="0" type="image" />
 			<guid isPermaLink="false">/posts/practical-introduction-to-docker</guid>
 			<pubDate>Wed, 17 May 2017 00:00:00 GMT</pubDate>
@@ -114,7 +205,7 @@ sudo service docker restart
 &lt;h2 id="writing-a-dockerfile"&gt;Writing a Dockerfile&lt;/h2&gt;
 &lt;p&gt;&lt;em&gt;Disclaimer: Okay, so this may not be the 'true Docker way' - the image will be bloated with some possibly redundant things, like g++, apt cache, build artifacts (e.g. object files) etc. If that's a problem for you, check out &lt;a href="https://www.ianlewis.org/en/creating-smaller-docker-images"&gt;this blog&lt;/a&gt; and &lt;a href="https://github.com/jwilder/docker-squash"&gt;this repository&lt;/a&gt; for some solutions.&lt;/em&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;FROM ubuntu:16.04
-MAINTAINER &amp;quot;&amp;lt;not&amp;#64;me.com&amp;gt;&amp;quot;
+MAINTAINER "&amp;lt;not@me.com&amp;gt;"
 
 VARIABLE jobs=32
 
@@ -140,12 +231,42 @@ RUN make -j $jobs &amp;amp;&amp;amp; make install
 &lt;p&gt;to just start some service inside the container in a &lt;em&gt;detached&lt;/em&gt; mode, meaning it's going to run in the background. We can also forward the port from 'inside' to the 'outside', so that the service can be reached on the host machine port - that's what the &lt;code&gt;-p&lt;/code&gt; flag is for.&lt;/p&gt;
 &lt;h2 id="conclusion"&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;Docker is a powerful tool - this short introduction only touches the surface of all the possibilities, but it should provide a fair starting point to create your own Docker environment, suitable for your use-case. Let me know if you found it helpful!&lt;/p&gt;
-</content:encoded>
+
+
+&lt;ul class="share-buttons"&gt;
+  &lt;li&gt;&lt;a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpzelasko.github.io&amp;amp;t=" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&amp;amp;t=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Facebook" src="/images/social_flat_rounded_rects_svg/Facebook.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fpzelasko.github.io&amp;amp;text=:%20https%3A%2F%2Fpzelasko.github.io&amp;amp;via=PiotrZelasko" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Tweet" src="/images/social_flat_rounded_rects_svg/Twitter.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://plus.google.com/share?url=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Google+" src="/images/social_flat_rounded_rects_svg/Google+.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.reddit.com/submit?url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=" target="_blank" title="Submit to Reddit" onclick="window.open('http://www.reddit.com/submit?url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Submit to Reddit" src="/images/social_flat_rounded_rects_svg/Reddit.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=&amp;amp;summary=&amp;amp;source=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Share on LinkedIn" src="/images/social_flat_rounded_rects_svg/LinkedIn.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="mailto:?subject=&amp;amp;body=:%20https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Send email" onclick="window.open('mailto:?subject=' + encodeURIComponent(document.title) + '&amp;amp;body=' +  encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Send email" src="/images/social_flat_rounded_rects_svg/Email.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = "https://pzelasko.github.io";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = programmers-tears; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://programmers-tears.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content:encoded>
 		</item>
 		<item>
 			<title>Creating modules in Python</title>
 			<link>/posts/creating-modules-in-python</link>
-			<description>&lt;p&gt;Regardless of whether you're building a web app, doing a data science project or just automating some workflow, you might find Python a very friendly language to do your work. Nonetheless, when I was starting to learn Python, I've experienced some struggles when it came to creating my own, easily importable modules and packages. Read further and check out a few tips which may save you the headache.&lt;/p&gt;</description>
+			<description>Programmer's Tears</description>
 			<enclosure url="/images/main_smaller.jpg" length="0" type="image" />
 			<guid isPermaLink="false">/posts/creating-modules-in-python</guid>
 			<pubDate>Tue, 09 May 2017 00:00:00 GMT</pubDate>
@@ -180,7 +301,7 @@ RUN make -j $jobs &amp;amp;&amp;amp; make install
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;As long as we're working within this package, there's no problem, we can &lt;code&gt;import C&lt;/code&gt; inside &lt;code&gt;D.py&lt;/code&gt;, as well as &lt;code&gt;import first_subpackage.A&lt;/code&gt;. However, when we want to &lt;code&gt;import C&lt;/code&gt; inside &lt;code&gt;A.py&lt;/code&gt; or &lt;code&gt;import first_subpackage.A&lt;/code&gt; inside &lt;code&gt;B.py&lt;/code&gt;, we've got a problem:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Traceback (most recent call last):
-  File &amp;quot;&amp;lt;stdin&amp;gt;&amp;quot;, line 1, in &amp;lt;module&amp;gt;
+  File "&amp;lt;stdin&amp;gt;", line 1, in &amp;lt;module&amp;gt;
 ImportError: No module named 'C'
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;There is a quick and dirty workaround - you can register the parent path during script execution in the PATH variable, by adding these lines in &lt;code&gt;A.py&lt;/code&gt;:&lt;/p&gt;
@@ -207,12 +328,42 @@ setup(
 &lt;p&gt;This makes &lt;code&gt;pip&lt;/code&gt; install the package in a development mode - it means that no files will be copied, and the installation will be updated each time you modify the code - great! Now you will be able to perform previous imports without any &lt;code&gt;ImportError&lt;/code&gt;s. As a rule of thumb, inside &lt;code&gt;my_package&lt;/code&gt;, you should always import by typing the full path to the imported module - e.g. in &lt;code&gt;B.py&lt;/code&gt;, use &lt;code&gt;import my_package.second_subpackage.holy_grail&lt;/code&gt; instead of &lt;code&gt;import holy_grail&lt;/code&gt;. Additional benefit is that now you can &lt;code&gt;import my_package&lt;/code&gt; using the Python interpreter regardless of which directory you started it in.&lt;/p&gt;
 &lt;h2 id="summary"&gt;Summary&lt;/h2&gt;
 &lt;p&gt;I've described some ways of handling Python modules and packages. Even though there are quick workarounds, the best option is to write a simple installation script. There's a lot more that can be said on this topic, but I hope you found this short intro helpful.&lt;/p&gt;
-</content:encoded>
+
+
+&lt;ul class="share-buttons"&gt;
+  &lt;li&gt;&lt;a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpzelasko.github.io&amp;amp;t=" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&amp;amp;t=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Facebook" src="/images/social_flat_rounded_rects_svg/Facebook.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fpzelasko.github.io&amp;amp;text=:%20https%3A%2F%2Fpzelasko.github.io&amp;amp;via=PiotrZelasko" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Tweet" src="/images/social_flat_rounded_rects_svg/Twitter.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://plus.google.com/share?url=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Google+" src="/images/social_flat_rounded_rects_svg/Google+.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.reddit.com/submit?url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=" target="_blank" title="Submit to Reddit" onclick="window.open('http://www.reddit.com/submit?url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Submit to Reddit" src="/images/social_flat_rounded_rects_svg/Reddit.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=&amp;amp;summary=&amp;amp;source=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Share on LinkedIn" src="/images/social_flat_rounded_rects_svg/LinkedIn.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="mailto:?subject=&amp;amp;body=:%20https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Send email" onclick="window.open('mailto:?subject=' + encodeURIComponent(document.title) + '&amp;amp;body=' +  encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Send email" src="/images/social_flat_rounded_rects_svg/Email.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = "https://pzelasko.github.io";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = programmers-tears; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://programmers-tears.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content:encoded>
 		</item>
 		<item>
 			<title>Yet another fizzbuzz...</title>
 			<link>/posts/yet-another-fizzubuzz</link>
-			<description>&lt;p&gt;By now, everybody has to know the infamous fizzbuzz programming interview task. Is it a good test of one's coding skills and problem-solving attitude? Honestly, I don't know. What I do know, is that some poeple are having great fun mocking the excercise (yes, myself included). My favourite so far is &lt;a href="http://joelgrus.com/2016/05/23/fizz-buzz-in-tensorflow/"&gt;Joel's take on tensorflow fizzbuzz solution&lt;/a&gt;.&lt;/p&gt;</description>
+			<description>Programmer's Tears</description>
 			<enclosure url="/images/main_smaller.jpg" length="0" type="image" />
 			<guid isPermaLink="false">/posts/yet-another-fizzubuzz</guid>
 			<pubDate>Sun, 07 May 2017 00:00:00 GMT</pubDate>
@@ -226,15 +377,15 @@ struct fizzbuzz { enum { value = number }; };
  
 template&amp;lt;unsigned number&amp;gt;
 struct fizzbuzz&amp;lt;false, false, number&amp;gt; { static const char value[]; };
-template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;false, false, number&amp;gt;::value[] = &amp;quot;fizzbuzz&amp;quot;; 
+template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;false, false, number&amp;gt;::value[] = "fizzbuzz"; 
  
 template&amp;lt;unsigned number&amp;gt;
 struct fizzbuzz&amp;lt;false, true, number&amp;gt; { static const char value[]; };
-template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;false, true, number&amp;gt;::value[] = &amp;quot;fizz&amp;quot;; 
+template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;false, true, number&amp;gt;::value[] = "fizz"; 
  
 template&amp;lt;unsigned number&amp;gt;
 struct fizzbuzz&amp;lt;true, false, number&amp;gt; { static const char value[]; };
-template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;true, false, number&amp;gt;::value[] = &amp;quot;buzz&amp;quot;; 
+template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;true, false, number&amp;gt;::value[] = "buzz"; 
  
 template &amp;lt;unsigned idx&amp;gt;
 struct iteration {
@@ -254,7 +405,7 @@ int main() {
     iteration&amp;lt;1&amp;gt;{}();
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;By now, you might wonder, &amp;quot;what kind of craziness is this stuff?!&amp;quot; Well, let me explain myself then!&lt;/p&gt;
+&lt;p&gt;By now, you might wonder, "what kind of craziness is this stuff?!" Well, let me explain myself then!&lt;/p&gt;
 &lt;p&gt;Firstly, the assumption is to move as much of the program logic from runtime to compile time. What it means, for example, is that instead of generating code which checks whether a number is divisible by 3, I want the compiler to generate code which already checked that during compilation, and only prints to the console the right answer for a given number. Why would I do that? For fun of course! However, in reality, it turns out that it's actually quite a useful technique when performing some kinds of optimizations, since you're eliminating branching from your runtime code (however, at the cost of compilation time and possible generated code bloat) [also, while we're at it, remember, that &lt;a href="https://en.wikiquote.org/wiki/Donald_Knuth"&gt;premature optimization is the root of all evil!&lt;/a&gt;].&lt;/p&gt;
 &lt;p&gt;So where do we start? Normally when iterating over one hundred numbers, one would probably use a for/while loop. No such thing here! We want our iteration to be performed in compile time. It seems like we could use just generate 100 different objects, each printing the right thing to the console, and call them one after another. One way to do this is to use recursion. But how do we generate those objects? Well, template metaprogramming comes to the rescue!&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;template &amp;lt;unsigned idx&amp;gt;
@@ -272,30 +423,60 @@ struct iteration&amp;lt;100&amp;gt; {
 }; 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We first define a struct named iteration. Since we templated the structure on an unsigned int we named index, we're in fact creating about 100 classes, each of which can use its individual index to determine what should be written to standard output, and can call the iteration after it (for that, we make the objects of these classes callable using the operator()). Should we only define the general recipe for iteration, it would recurse infinitely, and the compiler would stop at some point and yell at us. That's good! The compiler should yell at us for doing such silly mistakes. So, in order to terminate the recursion, we create a template specialization for the struct iteration at index 100, which doesn't point at another iteration and simply does nothing.&lt;/p&gt;
-&lt;p&gt;Okay, so we've successfully replaced the loop. Now, we've got to determine when to write &amp;quot;fizz&amp;quot;, &amp;quot;buzz&amp;quot;, &amp;quot;fizzbuzz&amp;quot;, or the number. That's the part where you usually write a series of ifs and elses. Not gonna happen here!&lt;/p&gt;
+&lt;p&gt;Okay, so we've successfully replaced the loop. Now, we've got to determine when to write "fizz", "buzz", "fizzbuzz", or the number. That's the part where you usually write a series of ifs and elses. Not gonna happen here!&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;template&amp;lt;bool mod_3, bool mod_5, unsigned number&amp;gt;
 struct fizzbuzz { enum { value = number }; };
  
 template&amp;lt;unsigned number&amp;gt;
 struct fizzbuzz&amp;lt;false, false, number&amp;gt; { static const char value[]; };
-template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;false, false, number&amp;gt;::value[] = &amp;quot;fizzbuzz&amp;quot;;
+template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;false, false, number&amp;gt;::value[] = "fizzbuzz";
  
 template&amp;lt;unsigned number&amp;gt;
 struct fizzbuzz&amp;lt;false, true, number&amp;gt; { static const char value[]; };
-template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;false, true, number&amp;gt;::value[] = &amp;quot;fizz&amp;quot;;
+template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;false, true, number&amp;gt;::value[] = "fizz";
  
 template&amp;lt;unsigned number&amp;gt;
 struct fizzbuzz&amp;lt;true, false, number&amp;gt; { static const char value[]; };
-template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;true, false, number&amp;gt;::value[] = &amp;quot;buzz&amp;quot;;
+template&amp;lt;unsigned number&amp;gt; const char fizzbuzz&amp;lt;true, false, number&amp;gt;::value[] = "buzz";
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Instead of writing conditional branches, we will make the compiler select the right branch at compile time. Since we already know all the numbers (1-100) at compile time, we observe that we can also determine whether they are divisible by 3 and by 5 at compile time. Conditional statements are now replaced by a templated struct fizzbuzz, which by default allows to access the number by using an enum with a constant named value defined inside. After having written the general case, we can specialize this template to write proper output depending on conditions being satisfied - e.g. when &lt;code&gt;number % 3&lt;/code&gt; evaluates to 0, and &lt;code&gt;number % 5&lt;/code&gt; evaluates to something other than 0, we cast them to bool (resulting in false and true) - we make this specialization have a &lt;code&gt;const char[]&lt;/code&gt; member &lt;code&gt;value&lt;/code&gt; with value &amp;quot;fizz&amp;quot;.&lt;/p&gt;
+&lt;p&gt;Instead of writing conditional branches, we will make the compiler select the right branch at compile time. Since we already know all the numbers (1-100) at compile time, we observe that we can also determine whether they are divisible by 3 and by 5 at compile time. Conditional statements are now replaced by a templated struct fizzbuzz, which by default allows to access the number by using an enum with a constant named value defined inside. After having written the general case, we can specialize this template to write proper output depending on conditions being satisfied - e.g. when &lt;code&gt;number % 3&lt;/code&gt; evaluates to 0, and &lt;code&gt;number % 5&lt;/code&gt; evaluates to something other than 0, we cast them to bool (resulting in false and true) - we make this specialization have a &lt;code&gt;const char[]&lt;/code&gt; member &lt;code&gt;value&lt;/code&gt; with value "fizz".&lt;/p&gt;
 &lt;p&gt;Since we have all specializations defined, we will get either an &lt;code&gt;int&lt;/code&gt; (more specifically, enum) or a &lt;code&gt;const char[]&lt;/code&gt; when evaluating
 &lt;code&gt;fizzbuzz&amp;lt;static_cast&amp;lt;bool&amp;gt;(idx % 3), static_cast&amp;lt;bool&amp;gt;(idx % 5), idx&amp;gt;::value&lt;/code&gt;.
 We can just pass that to std::cout.&lt;/p&gt;
 &lt;p&gt;Now, all we have to do, is call first iteration in main.&lt;/p&gt;
 &lt;p&gt;That's all there is to it. If you don't believe the code doesn't have any loops or conditional branches, &lt;a href="http://coliru.stacked-crooked.com/a/3ce6013f2223f7e7"&gt;have a look at assembly at coliru&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;I hope you enjoyed the post. Please let me know about that in the comments. Till' next time!&lt;/p&gt;
-</content:encoded>
+
+
+&lt;ul class="share-buttons"&gt;
+  &lt;li&gt;&lt;a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpzelasko.github.io&amp;amp;t=" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&amp;amp;t=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Facebook" src="/images/social_flat_rounded_rects_svg/Facebook.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fpzelasko.github.io&amp;amp;text=:%20https%3A%2F%2Fpzelasko.github.io&amp;amp;via=PiotrZelasko" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Tweet" src="/images/social_flat_rounded_rects_svg/Twitter.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://plus.google.com/share?url=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Share on Google+" src="/images/social_flat_rounded_rects_svg/Google+.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.reddit.com/submit?url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=" target="_blank" title="Submit to Reddit" onclick="window.open('http://www.reddit.com/submit?url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Submit to Reddit" src="/images/social_flat_rounded_rects_svg/Reddit.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=https%3A%2F%2Fpzelasko.github.io&amp;amp;title=&amp;amp;summary=&amp;amp;source=https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;amp;url=' + encodeURIComponent(document.URL) + '&amp;amp;title=' +  encodeURIComponent(document.title)); return false;"&gt;&lt;img alt="Share on LinkedIn" src="/images/social_flat_rounded_rects_svg/LinkedIn.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="mailto:?subject=&amp;amp;body=:%20https%3A%2F%2Fpzelasko.github.io" target="_blank" title="Send email" onclick="window.open('mailto:?subject=' + encodeURIComponent(document.title) + '&amp;amp;body=' +  encodeURIComponent(document.URL)); return false;"&gt;&lt;img alt="Send email" src="/images/social_flat_rounded_rects_svg/Email.svg"&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = "https://pzelasko.github.io";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = programmers-tears; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://programmers-tears.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content:encoded>
 		</item>
 	</channel>
 </rss>

@@ -40,7 +40,6 @@
         <script src="/assets/js/d3.v3.min.js"></script>
         <script src="/assets/js/trianglify.min.js"></script>
         <script src="/assets/js/Please-compressed.js"></script>
-        <script src="/assets/js/background-check.min.js"></script>
                 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,6 +47,7 @@
                 <script src="/assets/js/html5shiv.js"></script>
                 <script src="/assets/js/respond.min.js"></script>
         <![endif]-->
+
         
         
 
@@ -72,10 +72,9 @@
                                 <!-- Collect the nav links, forms, and other content for toggling -->
                                 <div class="collapse navbar-collapse" id="navbar-collapse">
                                         <ul class="nav navbar-nav navbar-right">
-                                                        <li><a href="/posts">Archive</a></li>
-        <li><a href="/tags">Tags</a></li>
-        <li><a href="/about">About Me</a></li>
-        <li><a href="/images/social_flat_rounded_rects_svg/license">License</a></li>
+                                                        <li><a href="/about">About Me</a></li>
+        <li><a href="/tags">All Tags</a></li>
+        <li><a href="/posts">Archive</a></li>
  
                                         </ul>
                                 </div>
@@ -95,7 +94,7 @@
     <h1>Speed up ML model development with GNU Parallel</h1>
         <h2 class="subheading">for fun and profit.</h2>
     <div class="meta">        
-Published on 04 czerwca 2017<br>    </div>
+Published on Sunday, June 4, 2017<br>    </div>
         <div class="tags">
                     <a role="button" href="/tags/bash" class="btn btn-default btn-xs">bash</a>
                     <a role="button" href="/tags/gnu-parallel" class="btn btn-default btn-xs">gnu-parallel</a>
@@ -116,7 +115,7 @@ Published on 04 czerwca 2017<br>    </div>
                                         
 
 <h2 id="introduction">Introduction</h2>
-<p>Recently, I feel like I've found the Holy Grail of parallel/distributed computation - the <a href="https://www.gnu.org/software/parallel/">GNU Parallel</a> program. This program allows you to run any command/script/pipeline/program in parallel with different arguments, possibly even distributing the jobs between several nodes. In contrast to frameworks such as Hadoop, it practically doesn't require any setup and has a very small overhead (perhaps it's not as robust though, and may scale worse for big data). I believe that any machine learning dev who works on &quot;medium data&quot;, has access to a few Linux machines (e.g. in academia or a small startup/company) and would like to find these tricky hyperparameters more efficiently can benefit from this program. Especially if you're working with a kind of model that's not easy to parallalelize, or for any reason works only on a single core.</p>
+<p>Recently, I feel like I've found the Holy Grail of parallel/distributed computation - the <a href="https://www.gnu.org/software/parallel/">GNU Parallel</a> program. This program allows you to run any command, script, pipeline or program in parallel with different arguments, possibly even distributing the jobs between several nodes. In contrast to frameworks such as Hadoop, it practically doesn't require any setup and has a very small overhead (perhaps it's not as robust though, and may scale worse for big data). I believe that any machine learning dev who works on &quot;medium data&quot;, has access to a few Linux machines (e.g. in academia or a small startup/company) and would like to find these tricky hyperparameters more efficiently can benefit from this program. Especially if you're working with a kind of model that's not easy to parallalelize, or for any reason works only on a single core.</p>
 <p>My motivation for this post is that I've used GNU Parallel to set up a framework for distributed language model development with several stages - configuration, data preprocessing, training, testing and results presentation, and I was very satisfied with the results. It took some searching on the Internet to set it up, so I hope to simplify the process for others by writing this. If you find it useful and want more, GNU Parallel has a <a href="https://www.gnu.org/software/parallel/parallel_tutorial.html">very thorough tutorial</a>.</p>
 <h2 id="installation">Installation</h2>
 <p>I assume you're working on a Linux machine, so that one's easy - either use your package manager, or install the latest version using the magic command (taken from Parallel's tutorial):</p>
@@ -208,13 +207,6 @@ s.setAttribute('data-timestamp', +new Date());
                 
                 <script>hljs.initHighlightingOnLoad();</script>
 
-
-                <script>
-                        BackgroundCheck.init({
-                                targets: '.intro-header,.navbar',
-                                images: '.intro-header'
-                        });
-                </script>
         </body>
 </html>
 
